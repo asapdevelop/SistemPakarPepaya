@@ -12,7 +12,7 @@ public class AdminResponse {
     private String error;
     @SerializedName("message")
     private String message;
-    @SerializedName("Admins")
+    @SerializedName("admins")
     private List<Admin> admins;
 
     public String getError() {

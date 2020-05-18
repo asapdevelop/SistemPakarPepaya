@@ -12,7 +12,7 @@ public class GejalaResponse {
     private String error;
     @SerializedName("message")
     private String message;
-    @SerializedName("Gejalas")
+    @SerializedName("gejalas")
     private List<Gejala> gejalas;
 
     public String getError() {

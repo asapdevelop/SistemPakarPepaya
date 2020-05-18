@@ -12,7 +12,7 @@ public class PenyakitResponse {
     private String error;
     @SerializedName("message")
     private String message;
-    @SerializedName("Penyakits")
+    @SerializedName("penyakits")
     private List<Penyakit> penyakits;
 
     public String getError() {

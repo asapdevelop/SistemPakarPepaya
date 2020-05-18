@@ -11,7 +11,7 @@ public class KonsultasiResponse {
     private String error;
     @SerializedName("message")
     private String message;
-    @SerializedName("Konsultasis")
+    @SerializedName("konsultasis")
     private List<Konsultasi> konsultasis;
 
     public String getError() {

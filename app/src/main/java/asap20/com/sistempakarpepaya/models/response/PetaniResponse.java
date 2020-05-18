@@ -11,7 +11,7 @@ public class PetaniResponse {
     private String error;
     @SerializedName("message")
     private String message;
-    @SerializedName("Petanis")
+    @SerializedName("petanis")
     private List<Petani> petanis;
 
     public String getError() {
