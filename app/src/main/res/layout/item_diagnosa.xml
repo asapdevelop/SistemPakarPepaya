@@ -1,0 +1,28 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    app:cardCornerRadius="0dp">
+    <RelativeLayout
+        android:id="@+id/layout_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_cardview"
+        android:padding="@dimen/_20sdp">
+
+        <CheckBox
+            android:id="@+id/cv_gejala"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gejala"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/_15ssp"/>
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

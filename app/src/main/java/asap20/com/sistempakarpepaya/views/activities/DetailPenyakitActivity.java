@@ -1,15 +1,13 @@
 package asap20.com.sistempakarpepaya.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,29 +18,32 @@ import asap20.com.sistempakarpepaya.models.Penyakit;
 import asap20.com.sistempakarpepaya.models.response.PenyakitResponse;
 import asap20.com.sistempakarpepaya.rest.ApiClient;
 import asap20.com.sistempakarpepaya.rest.ApiInterface;
-import asap20.com.sistempakarpepaya.views.adapter.PenyakitAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PenyakitActivity extends AppCompatActivity {
-    private static final String TAG = "PenyakitActivity";
+public class DetailPenyakitActivity extends AppCompatActivity {
+    private static final String TAG = "DetailPenyakitActivity";
 
-    TextView btnBack;
-    RecyclerView rvPenyakit;
+    int idPenyakit;
+    TextView namaPenyakit, detailPenyakit, btnBack;
+    ImageView gambarPenyakit;
     ApiInterface apiInterface;
-    LinearLayoutManager linearLayoutManager;
-    PenyakitAdapter penyakitAdapter;
     ProgressDialog dialog;
+//    ArrayList<Penyakit> penyakits;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_penyakit);
+        setContentView(R.layout.activity_detail_penyakit);
 
-        apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        idPenyakit = getIntent().getIntExtra("IDPENYAKIT", 99);
+        Log.d(TAG, "onCreate: " + idPenyakit);
+
+        namaPenyakit = findViewById(R.id.nama_penyakit);
+        detailPenyakit = findViewById(R.id.detail_penyakit);
+        gambarPenyakit = findViewById(R.id.gambar_penyakit);
         btnBack = findViewById(R.id.btn_back);
-        rvPenyakit = findViewById(R.id.rv_penyakit);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,20 +51,16 @@ public class PenyakitActivity extends AppCompatActivity {
             }
         });
 
-        dialog = new ProgressDialog(PenyakitActivity.this);
+//        penyakits = new ArrayList<>();
+//        Bundle bundle = getIntent().getExtras();
+//        penyakits = bundle.getParcelableArrayList("PENYAKIT");
 
-        rvPenyakit.setLayoutManager(new LinearLayoutManager(this.getApplicationContext()));
-        rvPenyakit.addItemDecoration(new DividerItemDecoration(this.getApplicationContext(), DividerItemDecoration.VERTICAL));
-        linearLayoutManager = new LinearLayoutManager(PenyakitActivity.this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rvPenyakit.setLayoutManager(linearLayoutManager);
-        rvPenyakit.setHasFixedSize(true);
-        tampilkanPenyakit();
-    }
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-    private void tampilkanPenyakit() {
-        dialog.setMessage("Memuat Data...");
+        dialog = new ProgressDialog(DetailPenyakitActivity.this);
+        dialog.setMessage("Loading...");
         dialog.show();
+
         Call<PenyakitResponse> call = apiInterface.getPenyakits();
         call.enqueue(new Callback<PenyakitResponse>() {
             @Override
@@ -73,20 +70,20 @@ public class PenyakitActivity extends AppCompatActivity {
                     dialog.dismiss();
                 } else {
                     List<Penyakit> penyakits = response.body().getPenyakits();
-
-                    penyakitAdapter = new PenyakitAdapter(PenyakitActivity.this, penyakits);
-                    rvPenyakit.setAdapter(penyakitAdapter);
-                    penyakitAdapter.notifyDataSetChanged();
+                    Log.d(TAG, "onResponse: " + idPenyakit + penyakits.get(idPenyakit).getNama_penyakit());
+                    namaPenyakit.setText(penyakits.get(idPenyakit).getNama_penyakit());
+                    detailPenyakit.setText(penyakits.get(idPenyakit).getDeskripsi_penyakit());
                     dialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<PenyakitResponse> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t);
+                Log.d(TAG, "onFailure: "+t);
                 dialog.dismiss();
             }
         });
+
     }
 
     @Override

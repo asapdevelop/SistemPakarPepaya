@@ -178,6 +178,7 @@
         android:layout_marginTop="5dp"
         android:fontFamily="@font/roboto_medium"
         android:text="SiKates"
+        android:textColor="#FFFFFF"
         android:textSize="@dimen/_15ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -235,7 +236,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Diagnosa"
+            android:text="Konsultasi"
             android:textAlignment="center"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold" />

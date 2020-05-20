@@ -10,6 +10,8 @@
     <string name="isi_riwayat">Pada menu ini, pengguna dapat melihat daftar riwayat diagnosa yang sudah pernah dilakukan sebelumnya</string>
     <string name="menu_about">MENU ABOUT</string>
     <string name="isi_about">Di menu ini pengguna dapat melihat info lengkap dari pembuat aplikasi</string>
+    <string name="back"><![CDATA[<]]></string>
+    <string name="deskripsiaplikasi">Deskripsi Aplikasi</string>
 
 
 </resources>

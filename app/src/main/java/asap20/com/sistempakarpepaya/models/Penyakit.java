@@ -1,8 +1,11 @@
 package asap20.com.sistempakarpepaya.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Penyakit {
+public class Penyakit implements Parcelable {
     @SerializedName("id_penyakit")
     private String id_penyakit;
     @SerializedName("nama_penyakit")
@@ -43,4 +46,37 @@ public class Penyakit {
     public void setGambar_penyakit(String gambar_penyakit) {
         this.gambar_penyakit = gambar_penyakit;
     }
+
+    public Penyakit(Parcel parcel) {
+        id_penyakit = parcel.readString();
+        nama_penyakit = parcel.readString();
+        deskripsi_penyakit = parcel.readString();
+        gambar_penyakit = parcel.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id_penyakit);
+        parcel.writeString(nama_penyakit);
+        parcel.writeString(deskripsi_penyakit);
+        parcel.writeString(gambar_penyakit);
+    }
+
+    public static final Parcelable.Creator<Penyakit> CREATOR = new Parcelable.Creator<Penyakit>(){
+
+        @Override
+        public Penyakit createFromParcel(Parcel parcel) {
+            return new Penyakit(parcel);
+        }
+
+        @Override
+        public Penyakit[] newArray(int i) {
+            return new Penyakit[i];
+        }
+    };
 }
