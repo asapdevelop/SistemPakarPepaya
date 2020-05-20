@@ -9,8 +9,6 @@ public class Pengetahuan {
     private String id_penyakit;
     @SerializedName("id_gejala")
     private String id_gejala;
-    @SerializedName("bobot_pakar")
-    private Double bobot_pakar;
 
     public String getId_pengetahuan() {
         return id_pengetahuan;
@@ -36,11 +34,4 @@ public class Pengetahuan {
         this.id_gejala = id_gejala;
     }
 
-    public Double getBobot_pakar() {
-        return bobot_pakar;
-    }
-
-    public void setBobot_pakar(Double bobot_pakar) {
-        this.bobot_pakar = bobot_pakar;
-    }
 }

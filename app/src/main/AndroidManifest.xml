@@ -9,13 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".views.activities.TentangActivity"></activity>
+        <activity android:name=".views.activities.BantuanActivity" />
+        <activity android:name=".views.activities.RiwayatActivity" />
+        <activity android:name=".views.activities.DiagnosaActivity" />
+        <activity android:name=".views.activities.PenyakitActivity" />
+        <activity
+            android:name=".views.activities.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".views.activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

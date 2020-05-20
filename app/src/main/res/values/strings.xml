@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">SistemPakarPepaya</string>
+    <string name="app_name">SiKates</string>
+
+    <string name="bantuan_top">Bantuan cara penggunaan aplikasi</string>
+    <string name="menu_diagnosa">MENU DIAGNOSA</string>
+    <string name="isi_diagnosa">Digunakan untuk melakukan diagnosa dengan cara menceklis gejala-gejala yang dirasakan dan menekan tombol Diagnosa untuk melihat hasil diagnosa</string>
+    <string name="menu_penyakit">MENU PENYAKIT</string>
+    <string name="isi_penyakit">Digunakan untuk melihat semua daftar penyakit pepaya dan bisa dilihat informasi detail dari setiap penyakit tersebut</string>
+    <string name="menu_riwayat">MENU RIWAYAT</string>
+    <string name="isi_riwayat">Pada menu ini, pengguna dapat melihat daftar riwayat diagnosa yang sudah pernah dilakukan sebelumnya</string>
+    <string name="menu_about">MENU ABOUT</string>
+    <string name="isi_about">Di menu ini pengguna dapat melihat info lengkap dari pembuat aplikasi</string>
+
+
 </resources>
