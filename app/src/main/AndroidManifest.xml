@@ -3,6 +3,8 @@
     package="asap20.com.sistempakarpepaya">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.activities.LoginActivivty"></activity>
+        <activity android:name=".views.activities.HasilDiagnosaActivity"></activity>
         <activity
             android:name=".views.activities.DetailPenyakitActivity"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -2,27 +2,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
     android:background="@android:color/transparent"
     android:orientation="vertical"
-    app:cardCornerRadius="0dp">
-    <RelativeLayout
+    app:cardCornerRadius="0dp"
+    android:layout_marginTop="2dip"
+    android:layout_marginBottom="2dip">
+    <LinearLayout
         android:id="@+id/layout_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_cardview"
-        android:padding="@dimen/_20sdp">
-
+        android:background="#ADDEE8"
+        android:padding="@dimen/_10sdp"
+        android:orientation="horizontal">
         <CheckBox
             android:id="@+id/cv_gejala"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Gejala"
+            android:text="Nama Gejala"
             android:textColor="@color/black_text"
-            android:textSize="@dimen/_15ssp"/>
+            android:textSize="@dimen/_15ssp"
+            android:layout_weight="1"/>
 
-
-    </RelativeLayout>
+        <RadioGroup
+            android:id="@+id/rb_group"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:visibility="gone"
+            >
+            <RadioButton
+                android:id="@+id/radio02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tidak_tahu_0_2" />
+            <RadioButton
+                android:id="@+id/radio04"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/mungkin_0_4" />
+            <RadioButton
+                android:id="@+id/radio06"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/kemungkinan_besar_0_6"/>
+            <RadioButton
+                android:id="@+id/radio08"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hampir_pasti_0_8" />
+            <RadioButton
+                android:id="@+id/radio1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pasti_1" />
+        </RadioGroup>
+    </LinearLayout>
 
 
 </androidx.cardview.widget.CardView>

@@ -12,6 +12,11 @@
     <string name="isi_about">Di menu ini pengguna dapat melihat info lengkap dari pembuat aplikasi</string>
     <string name="back"><![CDATA[<]]></string>
     <string name="deskripsiaplikasi">Deskripsi Aplikasi</string>
+    <string name="tidak_tahu_0_2">Tidak Tahu (0)</string>
+    <string name="mungkin_0_4">Mungkin (0,4)</string>
+    <string name="kemungkinan_besar_0_6">Kemungkinan Besar (0,6)</string>
+    <string name="hampir_pasti_0_8">Hampir Pasti (0,8)</string>
+    <string name="pasti_1">Pasti (1)</string>
 
 
 </resources>

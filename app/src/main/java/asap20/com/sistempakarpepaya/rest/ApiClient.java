@@ -7,7 +7,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    public static final String BASE_URL = "https://skripsus.000webhostapp.com/pepayaapi/v1/ ";
+    public static final String BASE_URL = "http://asapdev.xyz/pepayaapi/v1/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {

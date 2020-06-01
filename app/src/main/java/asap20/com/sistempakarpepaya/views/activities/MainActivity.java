@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.btnDiagnosa:
                 Intent intent = new Intent(MainActivity.this, DiagnosaActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btnPenyakit:
                 Intent intent1 = new Intent(MainActivity.this, PenyakitActivity.class);

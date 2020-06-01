@@ -3,57 +3,39 @@ package asap20.com.sistempakarpepaya.models;
 import com.google.gson.annotations.SerializedName;
 
 public class Konsultasi {
-    @SerializedName("id_konsultas")
-    private String id_konsultas;
-    @SerializedName("id_gejala")
-    private String id_gejala;
-    @SerializedName("id_petani")
-    private String id_petani;
-    @SerializedName("bobot_petani")
-    private Double bobot_petani;
-    @SerializedName("tgl_konsultasi")
-    private String tgl_konsultasi;
+    @SerializedName("id_konsultasi")
+    private int id_konsultasi;
+    @SerializedName("nama_petani")
+    private String nama_petani;
+    @SerializedName("no_telpon")
+    private String no_telpon;
     @SerializedName("hasil_konsultasi")
     private String hasil_konsultasi;
+    @SerializedName("tanggal")
+    private String tanggal;
 
-    public String getId_konsultas() {
-        return id_konsultas;
+    public int getId_konsultasi() {
+        return id_konsultasi;
     }
 
-    public void setId_konsultas(String id_konsultas) {
-        this.id_konsultas = id_konsultas;
+    public void setId_konsultasi(int id_konsultasi) {
+        this.id_konsultasi = id_konsultasi;
     }
 
-    public String getId_gejala() {
-        return id_gejala;
+    public String getNama_petani() {
+        return nama_petani;
     }
 
-    public void setId_gejala(String id_gejala) {
-        this.id_gejala = id_gejala;
+    public void setNama_petani(String nama_petani) {
+        this.nama_petani = nama_petani;
     }
 
-    public String getId_petani() {
-        return id_petani;
+    public String getNo_telpon() {
+        return no_telpon;
     }
 
-    public void setId_petani(String id_petani) {
-        this.id_petani = id_petani;
-    }
-
-    public Double getBobot_petani() {
-        return bobot_petani;
-    }
-
-    public void setBobot_petani(Double bobot_petani) {
-        this.bobot_petani = bobot_petani;
-    }
-
-    public String getTgl_konsultasi() {
-        return tgl_konsultasi;
-    }
-
-    public void setTgl_konsultasi(String tgl_konsultasi) {
-        this.tgl_konsultasi = tgl_konsultasi;
+    public void setNo_telpon(String no_telpon) {
+        this.no_telpon = no_telpon;
     }
 
     public String getHasil_konsultasi() {
@@ -62,5 +44,13 @@ public class Konsultasi {
 
     public void setHasil_konsultasi(String hasil_konsultasi) {
         this.hasil_konsultasi = hasil_konsultasi;
+    }
+
+    public String getTanggal() {
+        return tanggal;
+    }
+
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
     }
 }
