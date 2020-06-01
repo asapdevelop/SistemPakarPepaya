@@ -79,30 +79,35 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
                     case 2131230879:
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
+                                        gejalas.get(position).getNama_gejala(),
                                         Double.valueOf(0))
                         );
                         break;
                     case 2131230880:
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
+                                        gejalas.get(position).getNama_gejala(),
                                         Double.valueOf(0.4))
                         );
                         break;
                     case 2131230881:
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
+                                        gejalas.get(position).getNama_gejala(),
                                         Double.valueOf(0.6))
                         );
                         break;
                     case 2131230882:
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
+                                        gejalas.get(position).getNama_gejala(),
                                         Double.valueOf(0.8))
                         );
                         break;
                     case 2131230883:
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
+                                        gejalas.get(position).getNama_gejala(),
                                         Double.valueOf(1))
                         );
                         break;

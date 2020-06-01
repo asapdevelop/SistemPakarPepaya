@@ -8,16 +8,20 @@ import com.google.gson.annotations.SerializedName;
 public class KonsultasiCfUser implements Parcelable {
     @SerializedName("id_gejala")
     private String id_gejala;
+    @SerializedName("nama_gejala")
+    private String nama_gejala;
     @SerializedName("cf_user")
     private Double cf_user;
 
-    public KonsultasiCfUser(String id_gejala, Double cf_user) {
+    public KonsultasiCfUser(String id_gejala, String nama_gejala, Double cf_user) {
         this.id_gejala = id_gejala;
+        this.nama_gejala = nama_gejala;
         this.cf_user = cf_user;
     }
 
     public KonsultasiCfUser(Parcel parcel){
         id_gejala = parcel.readString();
+        nama_gejala = parcel.readString();
         cf_user = parcel.readDouble();
     }
 
@@ -41,6 +45,14 @@ public class KonsultasiCfUser implements Parcelable {
         this.id_gejala = id_gejala;
     }
 
+    public String getNama_gejala() {
+        return nama_gejala;
+    }
+
+    public void setNama_gejala(String nama_gejala) {
+        this.nama_gejala = nama_gejala;
+    }
+
     public Double getCf_user() {
         return cf_user;
     }
@@ -57,6 +69,7 @@ public class KonsultasiCfUser implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(id_gejala);
+        parcel.writeString(nama_gejala);
         parcel.writeDouble(cf_user);
     }
 }
