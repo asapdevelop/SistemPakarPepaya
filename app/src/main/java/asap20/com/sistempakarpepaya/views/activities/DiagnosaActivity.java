@@ -162,6 +162,14 @@ public class DiagnosaActivity extends AppCompatActivity {
                             }
                         }
                     }
+
+                    Collections.sort(hasilKonsultasiUsers, new Comparator<HasilKonsultasiUser>() {
+                        @Override
+                        public int compare(HasilKonsultasiUser hasilKonsultasiUser, HasilKonsultasiUser t1) {
+                            return t1.getNilaiCf().compareTo(hasilKonsultasiUser.getNilaiCf());
+                        }
+                    });
+
                     Intent intent = new Intent(DiagnosaActivity.this, HasilDiagnosaActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putParcelableArrayList("GEJALA", gejalaArrayList);
