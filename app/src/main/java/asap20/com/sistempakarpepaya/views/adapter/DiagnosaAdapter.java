@@ -80,35 +80,40 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
                                         gejalas.get(position).getNama_gejala(),
-                                        Double.valueOf(0))
+                                        (double) 0,
+                                        (gejalas.get(position).getBobot_pakar()*0))
                         );
                         break;
                     case 2131230880:
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
                                         gejalas.get(position).getNama_gejala(),
-                                        Double.valueOf(0.4))
+                                        0.4,
+                                        (gejalas.get(position).getBobot_pakar()*0.4))
                         );
                         break;
                     case 2131230881:
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
                                         gejalas.get(position).getNama_gejala(),
-                                        Double.valueOf(0.6))
+                                        0.6,
+                                        (gejalas.get(position).getBobot_pakar()*0.6))
                         );
                         break;
                     case 2131230882:
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
                                         gejalas.get(position).getNama_gejala(),
-                                        Double.valueOf(0.8))
+                                        0.8,
+                                        (gejalas.get(position).getBobot_pakar()*0.8))
                         );
                         break;
                     case 2131230883:
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
                                         gejalas.get(position).getNama_gejala(),
-                                        Double.valueOf(1))
+                                        (double) 1,
+                                        (gejalas.get(position).getBobot_pakar()*1))
                         );
                         break;
                 }

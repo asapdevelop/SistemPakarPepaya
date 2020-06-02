@@ -12,17 +12,21 @@ public class KonsultasiCfUser implements Parcelable {
     private String nama_gejala;
     @SerializedName("cf_user")
     private Double cf_user;
+    @SerializedName("hasil_cf")
+    private Double hasil_cf;
 
-    public KonsultasiCfUser(String id_gejala, String nama_gejala, Double cf_user) {
+    public KonsultasiCfUser(String id_gejala, String nama_gejala, Double cf_user, Double hasil_cf) {
         this.id_gejala = id_gejala;
         this.nama_gejala = nama_gejala;
         this.cf_user = cf_user;
+        this.hasil_cf = hasil_cf;
     }
 
     public KonsultasiCfUser(Parcel parcel){
         id_gejala = parcel.readString();
         nama_gejala = parcel.readString();
         cf_user = parcel.readDouble();
+        hasil_cf = parcel.readDouble();
     }
 
     public static Creator<KonsultasiCfUser> CREATOR = new Creator<KonsultasiCfUser>() {
@@ -61,6 +65,14 @@ public class KonsultasiCfUser implements Parcelable {
         this.cf_user = cf_user;
     }
 
+    public Double getHasil_cf() {
+        return hasil_cf;
+    }
+
+    public void setHasil_cf(Double hasil_cf) {
+        this.hasil_cf = hasil_cf;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -71,5 +83,6 @@ public class KonsultasiCfUser implements Parcelable {
         parcel.writeString(id_gejala);
         parcel.writeString(nama_gejala);
         parcel.writeDouble(cf_user);
+        parcel.writeDouble(hasil_cf);
     }
 }

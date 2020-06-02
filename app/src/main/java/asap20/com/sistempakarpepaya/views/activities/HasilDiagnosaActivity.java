@@ -5,11 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 import asap20.com.sistempakarpepaya.R;
 import asap20.com.sistempakarpepaya.models.Gejala;
+import asap20.com.sistempakarpepaya.models.HasilKonsultasiUser;
 import asap20.com.sistempakarpepaya.models.KonsultasiCfUser;
 import asap20.com.sistempakarpepaya.views.adapter.HasilGejalaAdapter;
 
@@ -17,6 +19,7 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
     private static final String TAG = "HasilDiagnosaActivity";
     ArrayList<Gejala> gejalaArrayList = new ArrayList<>();
     ArrayList<KonsultasiCfUser> konsultasiCfUsers = new ArrayList<>();
+    ArrayList<HasilKonsultasiUser> hasilKonsultasiUsers = new ArrayList<>();
     RecyclerView rvHasilGejala;
     HasilGejalaAdapter hasilGejalaAdapter;
 
@@ -31,6 +34,11 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
         assert bundle != null;
         gejalaArrayList = bundle.getParcelableArrayList("GEJALA");
         konsultasiCfUsers = bundle.getParcelableArrayList("CFUSER");
+        hasilKonsultasiUsers = bundle.getParcelableArrayList("HASILKONSULTASI");
+
+        for (int a = 0; a<hasilKonsultasiUsers.size(); a++){
+            Log.d(TAG, "onCreate: " + hasilKonsultasiUsers.get(a).getIdPenyakit() + " " + hasilKonsultasiUsers.get(a).getNilaiCf());
+        }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvHasilGejala.setLayoutManager(linearLayoutManager);
