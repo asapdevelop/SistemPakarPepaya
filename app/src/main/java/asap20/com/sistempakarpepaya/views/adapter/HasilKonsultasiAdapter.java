@@ -24,9 +24,11 @@ public class HasilKonsultasiAdapter extends RecyclerView.Adapter<HasilKonsultasi
     private static final String TAG = "HasilKonsultasiAdapter";
     View mView;
 
+
     Context context;
     List<Penyakit> penyakits;
     List<HasilKonsultasiUser> hasilKonsultasiUsers;
+
 
     public HasilKonsultasiAdapter(Context context, List<Penyakit> penyakits, List<HasilKonsultasiUser> hasilKonsultasiUsers) {
         this.context = context;
@@ -39,13 +41,14 @@ public class HasilKonsultasiAdapter extends RecyclerView.Adapter<HasilKonsultasi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.table_hasil_penyakit, parent, false);
+
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int rowPos = holder.getAdapterPosition();
-        if (rowPos==0){
+        if (rowPos == 0) {
             holder.cv_rank.setBackgroundResource(R.color.colorAccent);
             holder.cv_id_penyakit.setBackgroundResource(R.color.colorAccent);
             holder.cv_penyakit.setBackgroundResource(R.color.colorAccent);
@@ -64,7 +67,7 @@ public class HasilKonsultasiAdapter extends RecyclerView.Adapter<HasilKonsultasi
             holder.cv_hasil_cf.setText("CF");
             holder.cv_persen.setText("%");
         } else {
-            if (rowPos%2 == 1){
+            if (rowPos % 2 == 1) {
                 holder.cv_rank.setBackgroundResource(R.drawable.bg_top);
                 holder.cv_id_penyakit.setBackgroundResource(R.drawable.bg_top);
                 holder.cv_penyakit.setBackgroundResource(R.drawable.bg_top);
@@ -77,23 +80,25 @@ public class HasilKonsultasiAdapter extends RecyclerView.Adapter<HasilKonsultasi
                 holder.cv_hasil_cf.setBackgroundResource(R.drawable.bg_second);
                 holder.cv_persen.setBackgroundResource(R.drawable.bg_second);
             }
-            HasilKonsultasiUser konsultasiCfUser = hasilKonsultasiUsers.get(rowPos-1);
+            HasilKonsultasiUser konsultasiCfUser = hasilKonsultasiUsers.get(rowPos - 1);
 //            Double hasil = Double.valueOf(new DecimalFormat("#.##").format(konsultasiCfUser.getNilaiCf()));
 //            Double persen = Double.valueOf(new DecimalFormat("##.##").format(konsultasiCfUser.getNilaiCf()*100));
             holder.cv_rank.setText(String.valueOf(rowPos));
             holder.cv_id_penyakit.setText(konsultasiCfUser.getIdPenyakit());
-            Log.d(TAG, "onBindViewHolder: " + konsultasiCfUser.getNilaiCf() + " " + (konsultasiCfUser.getNilaiCf()*100)+"%");
+            Log.d(TAG, "onBindViewHolder: " + konsultasiCfUser.getNilaiCf() + " " + (konsultasiCfUser.getNilaiCf() * 100) + "%");
             holder.cv_hasil_cf.setText(String.valueOf(konsultasiCfUser.getNilaiCf()));
-            holder.cv_persen.setText((konsultasiCfUser.getNilaiCf()*100)+"%");
-            for (int a = 0; a<penyakits.size(); a++){
-                if (penyakits.get(a).getId_penyakit().trim().equals(hasilKonsultasiUsers.get(position).getIdPenyakit())){
+            holder.cv_persen.setText((konsultasiCfUser.getNilaiCf() * 100) + "%");
+            for (int a = 0; a < hasilKonsultasiUsers.size(); a++) {
+                if (penyakits.get(a).getId_penyakit().trim().equals(konsultasiCfUser.getIdPenyakit())) {
                     holder.cv_penyakit.setText(penyakits.get(a).getNama_penyakit());
+
                 }
+
+
             }
         }
 
     }
-
     @Override
     public int getItemCount() {
         return hasilKonsultasiUsers.size();

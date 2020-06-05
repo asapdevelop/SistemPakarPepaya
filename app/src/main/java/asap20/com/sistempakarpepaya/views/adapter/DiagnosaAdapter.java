@@ -76,15 +76,31 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
                     }
                 }
                 switch (i){
-                    case 2131230879:
+                    case R.id.radio02:
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
                                         gejalas.get(position).getNama_gejala(),
-                                        (double) 0,
-                                        (gejalas.get(position).getBobot_pakar()*0))
+                                        (double) 0.1,
+                                        (gejalas.get(position).getBobot_pakar()*0.1))
                         );
                         break;
-                    case 2131230880:
+                    case R.id.radio03:
+                        konsultasiCfUsers.add(
+                                new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
+                                        gejalas.get(position).getNama_gejala(),
+                                        (double) 0.2,
+                                        (gejalas.get(position).getBobot_pakar()*0.2))
+                        );
+                        break;
+                    case R.id.radio031:
+                        konsultasiCfUsers.add(
+                                new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
+                                        gejalas.get(position).getNama_gejala(),
+                                        (double) 0.3,
+                                        (gejalas.get(position).getBobot_pakar()*0.3))
+                        );
+                        break;
+                    case R.id.radio04:
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
                                         gejalas.get(position).getNama_gejala(),
@@ -92,7 +108,15 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
                                         (gejalas.get(position).getBobot_pakar()*0.4))
                         );
                         break;
-                    case 2131230881:
+                    case R.id.radio041:
+                        konsultasiCfUsers.add(
+                                new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
+                                        gejalas.get(position).getNama_gejala(),
+                                        0.5,
+                                        (gejalas.get(position).getBobot_pakar()*0.5))
+                        );
+                        break;
+                    case R.id.radio06:
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
                                         gejalas.get(position).getNama_gejala(),
@@ -100,7 +124,15 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
                                         (gejalas.get(position).getBobot_pakar()*0.6))
                         );
                         break;
-                    case 2131230882:
+                    case R.id.radio061:
+                        konsultasiCfUsers.add(
+                                new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
+                                        gejalas.get(position).getNama_gejala(),
+                                        0.7,
+                                        (gejalas.get(position).getBobot_pakar()*0.7))
+                        );
+                        break;
+                    case R.id.radio08:
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
                                         gejalas.get(position).getNama_gejala(),
@@ -108,7 +140,7 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
                                         (gejalas.get(position).getBobot_pakar()*0.8))
                         );
                         break;
-                    case 2131230883:
+                    case R.id.radio1:
                         konsultasiCfUsers.add(
                                 new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
                                         gejalas.get(position).getNama_gejala(),

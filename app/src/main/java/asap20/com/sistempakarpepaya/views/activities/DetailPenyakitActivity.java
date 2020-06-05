@@ -4,16 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import asap20.com.sistempakarpepaya.R;
+import asap20.com.sistempakarpepaya.models.HasilKonsultasiUser;
 import asap20.com.sistempakarpepaya.models.Penyakit;
 import asap20.com.sistempakarpepaya.models.response.PenyakitResponse;
 import asap20.com.sistempakarpepaya.rest.ApiClient;
@@ -26,10 +32,13 @@ public class DetailPenyakitActivity extends AppCompatActivity {
     private static final String TAG = "DetailPenyakitActivity";
 
     int idPenyakit;
-    TextView namaPenyakit, detailPenyakit, btnBack;
+    String idPenyakits;
+    TextView namaPenyakit, detailPenyakit, btnBack,pengendalianya;
     ImageView gambarPenyakit;
     ApiInterface apiInterface;
     ProgressDialog dialog;
+    List<Penyakit> penyakits;
+    ArrayList<HasilKonsultasiUser> hasilKonsultasiUsers = new ArrayList<>();
 //    ArrayList<Penyakit> penyakits;
 
     @Override
@@ -37,12 +46,14 @@ public class DetailPenyakitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_penyakit);
 
-        idPenyakit = getIntent().getIntExtra("IDPENYAKIT", 99);
+       // idPenyakit = getIntent().getIntExtra("IDPENYAKIT", 99);
+        idPenyakits = getIntent().getStringExtra("IDPENYAKIT");
         Log.d(TAG, "onCreate: " + idPenyakit);
 
         namaPenyakit = findViewById(R.id.nama_penyakit);
         detailPenyakit = findViewById(R.id.detail_penyakit);
         gambarPenyakit = findViewById(R.id.gambar_penyakit);
+        pengendalianya=findViewById(R.id.pengendalian_penyakit);
         btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,13 +79,29 @@ public class DetailPenyakitActivity extends AppCompatActivity {
                 if (Boolean.valueOf(response.body().getError())){
                     Log.d(TAG, "onResponse: " + response.body().getMessage());
                     dialog.dismiss();
-                } else {
-                    List<Penyakit> penyakits = response.body().getPenyakits();
-                    Log.d(TAG, "onResponse: " + idPenyakit + penyakits.get(idPenyakit).getNama_penyakit());
-                    namaPenyakit.setText(penyakits.get(idPenyakit).getNama_penyakit());
-                    detailPenyakit.setText(penyakits.get(idPenyakit).getDeskripsi_penyakit());
-                    dialog.dismiss();
                 }
+                else {
+                    List<Penyakit> penyakits = response.body().getPenyakits();
+
+                    for (int a = 0; a < penyakits.size(); a++) {
+                        if (penyakits.get(a).getId_penyakit().trim().equals(idPenyakits)) {
+
+                    Log.d(TAG, "onResponse: " + a + penyakits.get(a).getNama_penyakit());
+                    namaPenyakit.setText(penyakits.get(a).getNama_penyakit());
+                    detailPenyakit.setText(penyakits.get(a).getDeskripsi_penyakit());
+                    pengendalianya.setText(penyakits.get(a).getPengendalianya());
+                    Picasso.with(DetailPenyakitActivity.this)
+                            .load(penyakits.get(a).getGambar_penyakit())
+                            .into(gambarPenyakit);
+
+                    dialog.dismiss();}}
+                }
+
+
+
+
+
+
             }
 
             @Override

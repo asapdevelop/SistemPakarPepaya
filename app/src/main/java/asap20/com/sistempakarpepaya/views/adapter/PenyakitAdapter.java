@@ -29,6 +29,7 @@ public class PenyakitAdapter extends RecyclerView.Adapter<PenyakitAdapter.ViewHo
 
     List<Penyakit> listPenyakit;
     ArrayList<Penyakit> penyakits;
+    String id;
 
     public PenyakitAdapter(Context context, List<Penyakit> listPenyakit) {
         this.context = context;
@@ -50,6 +51,7 @@ public class PenyakitAdapter extends RecyclerView.Adapter<PenyakitAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: " + position+ listPenyakit.get(position).getNama_penyakit());
+                id=listPenyakit.get(position).getId_penyakit();
 //                penyakits.add(listPenyakit.get(position));
 //                Intent intent = new Intent(context, DetailPenyakitActivity.class);
 //                Bundle bundle = new Bundle();
@@ -58,7 +60,7 @@ public class PenyakitAdapter extends RecyclerView.Adapter<PenyakitAdapter.ViewHo
 //                context.startActivity(intent);
 
                 Intent intent = new Intent(context, DetailPenyakitActivity.class);
-                intent.putExtra("IDPENYAKIT", position);
+                intent.putExtra("IDPENYAKIT", id);
                 context.startActivity(intent);
             }
         });

@@ -23,14 +23,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:fontFamily="@font/biorhyme_bold"
-        android:text="Hasil Diagnosa"
+        android:text="Hasil Konsultasi"
         android:textColor="@color/white"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintBottom_toBottomOf="@+id/img_back"
         app:layout_constraintStart_toEndOf="@+id/img_back"
         app:layout_constraintTop_toTopOf="@+id/img_back" />
 
-    <View
+    <TextView
         android:id="@+id/view3"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_43sdp"
@@ -83,9 +83,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
+            <TextView
+                android:id="@+id/hasilkonsultasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data Hasil Konsultasi"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:textColor="@color/black_text"
+                android:textStyle="bold"
+                android:textSize="@dimen/_15ssp"/>
         </LinearLayout>
     </ScrollView>
-
+    <Button
+        android:id="@+id/btn_hasildiagnosa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/holo_blue_dark"
+        android:text="SOLUSI"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,7 +55,7 @@ public class HasilGejalaAdapter extends RecyclerView.Adapter<HasilGejalaAdapter.
             holder.cv_no.setText("No");
             holder.cv_id_gejala.setText("Kode");
             holder.cv_gejala.setText("Gejala");
-            holder.cv_cf_user.setText("Nilai");
+            holder.cv_cf_user.setText("Nilai User");
         } else {
             if (rowPos%2 == 1){
                 holder.cv_no.setBackgroundResource(R.drawable.bg_top);
