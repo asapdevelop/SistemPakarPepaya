@@ -135,7 +135,7 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
                         nilai=" Pasti";
                     }
                     hasilkonsultasi.setText("Berdasarkan data diatas penyakit yang mungkin terjadi yaitu : " + penyakit
-                            + " \nDengan Bobot  \r\r\r\r\r\r\r:"+String.valueOf(m*100 )+"%"+" \nserta tingkat keyakinannya adalah  "+ nilai);
+                            + " \nDengan Bobot  \r\r\r\r:"+String.valueOf(m*100 )+"%"+" \nserta tingkat keyakinannya adalah  "+ nilai);
                     Log.d(TAG, "onCreate: " + m + nilai);
 
                 }
