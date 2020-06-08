@@ -62,6 +62,7 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HasilDiagnosaActivity.this, MainActivity.class);
                 //intent.putExtra("IDPENYAKIT",hasilKonsultasiUsers.get(0).getIdPenyakit());
+
                 startActivity(intent);
             }
         });
