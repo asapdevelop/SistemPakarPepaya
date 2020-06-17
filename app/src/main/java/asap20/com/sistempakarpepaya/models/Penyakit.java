@@ -14,8 +14,8 @@ public class Penyakit implements Parcelable {
     private String deskripsi_penyakit;
     @SerializedName("pengendalianya")
     private String pengendalianya;
-    @SerializedName("gambar_penyakit")
-    private String gambar_penyakit;
+    @SerializedName("gambar")
+    private String gambar;
 
     public String getId_penyakit() {
         return id_penyakit;
@@ -50,11 +50,11 @@ public class Penyakit implements Parcelable {
     }
 
     public String getGambar_penyakit() {
-        return gambar_penyakit;
+        return gambar;
     }
 
-    public void setGambar_penyakit(String gambar_penyakit) {
-        this.gambar_penyakit = gambar_penyakit;
+    public void setGambar_penyakit(String gambar) {
+        this.gambar = gambar;
     }
 
     public Penyakit(Parcel parcel) {
@@ -62,7 +62,7 @@ public class Penyakit implements Parcelable {
         nama_penyakit = parcel.readString();
         deskripsi_penyakit = parcel.readString();
         pengendalianya = parcel.readString();
-        gambar_penyakit = parcel.readString();
+        gambar = parcel.readString();
     }
 
     @Override
@@ -76,7 +76,7 @@ public class Penyakit implements Parcelable {
         parcel.writeString(nama_penyakit);
         parcel.writeString(deskripsi_penyakit);
         parcel.writeString(pengendalianya);
-        parcel.writeString(gambar_penyakit);
+        parcel.writeString(gambar);
     }
 
     public static final Parcelable.Creator<Penyakit> CREATOR = new Parcelable.Creator<Penyakit>(){

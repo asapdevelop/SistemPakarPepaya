@@ -33,7 +33,7 @@ public class DetailPenyakitActivity extends AppCompatActivity {
 
     int idPenyakit;
     String idPenyakits;
-    TextView namaPenyakit, detailPenyakit, btnBack,pengendalianya;
+    TextView namaPenyakit, detailPenyakit, btnBack, pengendalianya;
     ImageView gambarPenyakit;
     ApiInterface apiInterface;
     ProgressDialog dialog;
@@ -46,14 +46,14 @@ public class DetailPenyakitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_penyakit);
 
-       // idPenyakit = getIntent().getIntExtra("IDPENYAKIT", 99);
+        // idPenyakit = getIntent().getIntExtra("IDPENYAKIT", 99);
         idPenyakits = getIntent().getStringExtra("IDPENYAKIT");
         Log.d(TAG, "onCreate: " + idPenyakit);
 
         namaPenyakit = findViewById(R.id.nama_penyakit);
         detailPenyakit = findViewById(R.id.detail_penyakit);
         gambarPenyakit = findViewById(R.id.gambar_penyakit);
-        pengendalianya=findViewById(R.id.pengendalian_penyakit);
+        pengendalianya = findViewById(R.id.pengendalian_penyakit);
         btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,37 +76,36 @@ public class DetailPenyakitActivity extends AppCompatActivity {
         call.enqueue(new Callback<PenyakitResponse>() {
             @Override
             public void onResponse(Call<PenyakitResponse> call, Response<PenyakitResponse> response) {
-                if (Boolean.valueOf(response.body().getError())){
+                if (Boolean.valueOf(response.body().getError())) {
                     Log.d(TAG, "onResponse: " + response.body().getMessage());
                     dialog.dismiss();
-                }
-                else {
+                } else {
                     List<Penyakit> penyakits = response.body().getPenyakits();
 
                     for (int a = 0; a < penyakits.size(); a++) {
                         if (penyakits.get(a).getId_penyakit().trim().equals(idPenyakits)) {
 
-                    Log.d(TAG, "onResponse: " + a + penyakits.get(a).getNama_penyakit());
-                    namaPenyakit.setText(penyakits.get(a).getNama_penyakit());
-                    detailPenyakit.setText(penyakits.get(a).getDeskripsi_penyakit());
-                    pengendalianya.setText(penyakits.get(a).getPengendalianya());
-                    Picasso.with(DetailPenyakitActivity.this)
-                            .load(penyakits.get(a).getGambar_penyakit())
-                            .into(gambarPenyakit);
+                            Log.d(TAG, "onResponse: " + a + penyakits.get(a).getNama_penyakit());
+                            namaPenyakit.setText(penyakits.get(a).getNama_penyakit());
+                            detailPenyakit.setText(penyakits.get(a).getDeskripsi_penyakit());
+                            pengendalianya.setText(penyakits.get(a).getPengendalianya());
+                            Log.d(TAG, "onResponse: " + penyakits.get(a).getGambar_penyakit());
+                            Picasso.with(DetailPenyakitActivity.this)
+                                    .load(penyakits.get(a).getGambar_penyakit())
+                                    .fit()
+                                    .into(gambarPenyakit);
 
-                    dialog.dismiss();}}
+                            dialog.dismiss();
+                        }
+                    }
                 }
-
-
-
-
 
 
             }
 
             @Override
             public void onFailure(Call<PenyakitResponse> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t);
+                Log.d(TAG, "onFailure: " + t);
                 dialog.dismiss();
             }
         });

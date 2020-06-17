@@ -7,8 +7,8 @@ public class DetailKonsultasi {
     private int id_detail;
     @SerializedName("id_konsultas")
     private int id_konsultas;
-    @SerializedName("nama_petani")
-    private String nama_petani;
+    @SerializedName("id_gejala")
+    private String id_gejala;
 
     public int getId_detail() {
         return id_detail;
@@ -26,11 +26,11 @@ public class DetailKonsultasi {
         this.id_konsultas = id_konsultas;
     }
 
-    public String getNama_petani() {
-        return nama_petani;
+    public String getId_gejala() {
+        return id_gejala;
     }
 
-    public void setNama_petani(String nama_petani) {
-        this.nama_petani = nama_petani;
+    public void setId_gejala(String id_gejala) {
+        this.id_gejala = id_gejala;
     }
 }

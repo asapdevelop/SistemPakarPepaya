@@ -31,6 +31,16 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
     Context context;
     List<Gejala> gejalas;
 
+    public interface OnProgress{
+        void onProgress(Boolean boo, int position);
+    }
+
+    private OnProgress mListener;
+
+    public void setOnProgressListener(OnProgress listener){
+        mListener = listener;
+    }
+
     public DiagnosaAdapter(Context context, List<Gejala> gejalas) {
         this.context = context;
         this.gejalas = gejalas;
@@ -151,6 +161,14 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
                 }
             }
         });
+
+        if (position==gejalas.size()-1){
+            Log.d(TAG, "onBindViewHolder: false" + position + " " + gejalas.size());
+            mListener.onProgress(false, position);
+        } else {
+            Log.d(TAG, "onBindViewHolder: true" + position + " " + gejalas.size());
+            mListener.onProgress(true, position);
+        }
     }
 
     @Override

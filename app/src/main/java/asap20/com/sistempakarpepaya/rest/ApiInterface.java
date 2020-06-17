@@ -2,6 +2,7 @@ package asap20.com.sistempakarpepaya.rest;
 
 import asap20.com.sistempakarpepaya.models.response.AdminResponse;
 import asap20.com.sistempakarpepaya.models.response.BaseResponse;
+import asap20.com.sistempakarpepaya.models.response.DetailKonsultasiResponse;
 import asap20.com.sistempakarpepaya.models.response.GejalaResponse;
 import asap20.com.sistempakarpepaya.models.response.KonsultasiResponse;
 import asap20.com.sistempakarpepaya.models.response.PengetahuanResponse;
@@ -67,12 +68,11 @@ public interface ApiInterface {
 
     @POST("Konsultasi.php?mode=createKonsultasi")
     @FormUrlEncoded
-    Call<BaseResponse> createKonsultasi(@Field("id_konsultasi") String id_konsultasi,
-                                        @Field("id_gejala") String id_gejala,
-                                        @Field("id_petani") String id_petani,
-                                        @Field("bobot_petani") Double bobot_petani,
-                                        @Field("tgl_konsultasi") String tgl_konsultasi,
-                                        @Field("hasil_konsultasi") String hasil_konsultasi);
+    Call<BaseResponse> createKonsultasi(@Field("nama_petani") String nama_petani,
+                                        @Field("no_telpon") String no_telpon,
+                                        @Field("alamat_petani") String alamat_petani,
+                                        @Field("hasil_konsultasi") String hasil_konsultasi,
+                                        @Field("tanggal") String tanggal);
 
     @POST("Konsultasi.php?mode=getKonsultasi")
     @FormUrlEncoded
@@ -187,5 +187,20 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<PetaniResponse> loginPetani(@Field("username_petani") String username_petani,
                                      @Field("password_petani") String password_petani);
+
+    //DetailKonsiltasi
+
+    @POST("DetailKonsultasi.php?mode=createDetailKonsultasi")
+    @FormUrlEncoded
+    Call<BaseResponse> createDetailKonsultasi(@Field("id_konsultasi") int id_konsultasi,
+                                              @Field("id_gejala") String id_gejala);
+
+    @POST("DetailKonsultasi.php?mode=getDetailKonsultasi")
+    @FormUrlEncoded
+    Call<DetailKonsultasiResponse> getDetailKonsultasi(@Field("id_konsultasi") int id_konsultasi);
+
+
+    @GET("DetailKonsultasi.php?mode=getDetailKonsultasis")
+    Call<DetailKonsultasiResponse> getDetailKonsultasis();
 
 }

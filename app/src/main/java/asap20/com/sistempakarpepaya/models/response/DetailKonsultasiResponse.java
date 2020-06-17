@@ -11,8 +11,8 @@ public class DetailKonsultasiResponse {
     private String error;
     @SerializedName("message")
     private String message;
-    @SerializedName("detailKonsultasis")
-    private List<DetailKonsultasi> detailKonsultasis;
+    @SerializedName("konsultasis")
+    private List<DetailKonsultasi> konsultasis;
 
     public String getError() {
         return error;
@@ -30,11 +30,11 @@ public class DetailKonsultasiResponse {
         this.message = message;
     }
 
-    public List<DetailKonsultasi> getDetailKonsultasis() {
-        return detailKonsultasis;
+    public List<DetailKonsultasi> getKonsultasis() {
+        return konsultasis;
     }
 
-    public void setDetailKonsultasis(List<DetailKonsultasi> detailKonsultasis) {
-        this.detailKonsultasis = detailKonsultasis;
+    public void setKonsultasis(List<DetailKonsultasi> konsultasis) {
+        this.konsultasis = konsultasis;
     }
 }
