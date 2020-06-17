@@ -13,8 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.activities.HasilDiagnosaActivity"
+        <activity android:name=".views.activities.DetailRiwayatActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".views.activities.HasilDiagnosaActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.activities.DetailPenyakitActivity"
             android:theme="@style/AppTheme.NoActionBar" />

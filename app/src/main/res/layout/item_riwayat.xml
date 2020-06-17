@@ -21,7 +21,7 @@
             android:id="@+id/cv_penyakit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Penyakit"
+            android:text="Petani"
             android:textColor="@color/black_text"
             android:textSize="@dimen/_17ssp"
             android:textStyle="bold"
