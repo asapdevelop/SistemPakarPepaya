@@ -91,10 +91,11 @@ public class DiagnosaActivity extends AppCompatActivity {
         btnDiagnosa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (diagnosaAdapter.gejalaArrayList.size()<2){
+                if (diagnosaAdapter.gejalaArrayList.size() < 2) {
                     Toast.makeText(DiagnosaActivity.this, "Pilih Minimal 2 Gejala", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (diagnosaAdapter.gejalaArrayList.size() != diagnosaAdapter.konsultasiCfUsers.size()) {
+                    if (diagnosaAdapter.gejalaArrayList.size() != diagnosaAdapter.getJumlahKonsul()) {
+                        Log.d(TAG, "onClick: Gejala " + diagnosaAdapter.gejalaArrayList.size() + "\nKonsultasi " + diagnosaAdapter.getJumlahKonsul());
                         Toast.makeText(DiagnosaActivity.this, "Lengkapi Diagnosa Anda..", Toast.LENGTH_SHORT).show();
                     } else {
                         for (int a = 0; a < diagnosaAdapter.gejalaArrayList.size(); a++) {
@@ -124,11 +125,7 @@ public class DiagnosaActivity extends AppCompatActivity {
                 }
             }
         });
-
-//        dialogPetani();
-
         initRecyclerView();
-
     }
 
     private void hitungCf() {
@@ -139,74 +136,79 @@ public class DiagnosaActivity extends AppCompatActivity {
             public void onResponse(Call<PengetahuanResponse> call, Response<PengetahuanResponse> response) {
                 if (Boolean.valueOf(response.body().getError())) {
                     Log.d(TAG, "onResponse: " + response.body().getMessage());
-                } else {
-                    List<Pengetahuan> pengetahuans = response.body().getPengetahuans();
-                    Log.d(TAG, "onResponse: " + pengetahuans.size());
-                    for (int a = 0; a < konsultasiCfUsers.size(); a++) {
-                        for (int b = 0; b < pengetahuans.size(); b++) {
-                            if (konsultasiCfUsers.get(a).getId_gejala().equals(pengetahuans.get(b).getId_gejala())) {
-                                pengetahuanArrayList.add(pengetahuans.get(b));
-                            }
+                }
+                List<Pengetahuan> pengetahuans = response.body().getPengetahuans();
+                Log.d(TAG, "onResponse: " + pengetahuans.size());
+                for (int a = 0; a < konsultasiCfUsers.size(); a++) {
+                    for (int b = 0; b < pengetahuans.size(); b++) {
+                        if (konsultasiCfUsers.get(a).getId_gejala().equals(pengetahuans.get(b).getId_gejala())) {
+                            pengetahuanArrayList.add(pengetahuans.get(b));
                         }
-                    }
-                    Log.d(TAG, "Seleksi: " + pengetahuanArrayList.size());
-                    Collections.sort(pengetahuanArrayList, new Comparator<Pengetahuan>() {
-                        @Override
-                        public int compare(Pengetahuan pengetahuan, Pengetahuan t1) {
-                            return pengetahuan.getId_penyakit().compareTo(t1.getId_penyakit());
-                        }
-                    });
-
-                    for (int a = 0; a < pengetahuanArrayList.size(); a++) {
-                        if (a == 0) {
-                            for (int b = 0; b < konsultasiCfUsers.size(); b++) {
-                                if (pengetahuanArrayList.get(a).getId_gejala().trim().equals(konsultasiCfUsers.get(b).getId_gejala())) {
-                                    hasilKonsultasiUsers.add(new HasilKonsultasiUser(pengetahuanArrayList.get(a).getId_penyakit(), konsultasiCfUsers.get(b).getHasil_cf()));
-                                }
-                            }
-                        } else {
-                            Double v1=0d, v2=0d, hasil=0d;
-                            if (pengetahuanArrayList.get(a).getId_penyakit().trim().equals(hasilKonsultasiUsers.get(hasilKonsultasiUsers.size()-1).getIdPenyakit())) {
-                                for (int b=0; b<konsultasiCfUsers.size();b++){
-                                    if (pengetahuanArrayList.get(a).getId_gejala().trim().equals(konsultasiCfUsers.get(b).getId_gejala())){
-                                        v1 = konsultasiCfUsers.get(b).getHasil_cf();
-                                    }
-                                }
-                                v2 = hasilKonsultasiUsers.get(hasilKonsultasiUsers.size()-1).getNilaiCf();
-                                hasil = v1+(v2*(1-v1));
-                                hasilKonsultasiUsers.remove(hasilKonsultasiUsers.size()-1);
-                                hasilKonsultasiUsers.add(new HasilKonsultasiUser(pengetahuanArrayList.get(a).getId_penyakit(), hasil));
-                            } else {
-                                for (int b = 0; b < konsultasiCfUsers.size(); b++) {
-                                    if (pengetahuanArrayList.get(a).getId_gejala().trim().equals(konsultasiCfUsers.get(b).getId_gejala())) {
-                                        hasilKonsultasiUsers.add(new HasilKonsultasiUser(pengetahuanArrayList.get(a).getId_penyakit(), konsultasiCfUsers.get(b).getHasil_cf()));
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    Collections.sort(hasilKonsultasiUsers, new Comparator<HasilKonsultasiUser>() {
-                        @Override
-                        public int compare(HasilKonsultasiUser hasilKonsultasiUser, HasilKonsultasiUser t1) {
-                            return t1.getNilaiCf().compareTo(hasilKonsultasiUser.getNilaiCf());
-                        }
-                    });
-
-                    Intent intent = new Intent(DiagnosaActivity.this, HasilDiagnosaActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelableArrayList("GEJALA", gejalaArrayList);
-                    bundle.putParcelableArrayList("CFUSER", konsultasiCfUsers);
-                    bundle.putParcelableArrayList("HASILKONSULTASI", hasilKonsultasiUsers);
-                    bundle.putParcelableArrayList("KONSULTASI", konsultasis);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    onPause();
-                    for (int a = 0; a < pengetahuanArrayList.size(); a++) {
-                        Log.d(TAG, "onResponse: " + pengetahuanArrayList.get(a).getId_penyakit() + " " + pengetahuanArrayList.get(a).getId_gejala());
                     }
                 }
+                Log.d(TAG, "Seleksi: " + pengetahuanArrayList.size());
+                Collections.sort(pengetahuanArrayList, new Comparator<Pengetahuan>() {
+                    @Override
+                    public int compare(Pengetahuan pengetahuan, Pengetahuan t1) {
+                        return pengetahuan.getId_penyakit().compareTo(t1.getId_penyakit());
+                    }
+                });
+
+                for (int a = 0; a < pengetahuanArrayList.size(); a++) {
+                    if (a == 0) {
+                        for (int b = 0; b < konsultasiCfUsers.size(); b++) {
+                            if (pengetahuanArrayList.get(a).getId_gejala().trim().equals(konsultasiCfUsers.get(b).getId_gejala())) {
+                                hasilKonsultasiUsers.add(new HasilKonsultasiUser(pengetahuanArrayList.get(a).getId_penyakit(),
+                                        konsultasiCfUsers.get(b).getHasil_cf()));
+                            }
+                        }
+                    } else {
+                        Double v1 = 0d, v2 = 0d, hasil = 0d;
+                        if (pengetahuanArrayList.get(a).getId_penyakit().trim().equals
+                                (hasilKonsultasiUsers.get(hasilKonsultasiUsers.size() - 1).getIdPenyakit())) {
+                            for (int b = 0; b < konsultasiCfUsers.size(); b++) {
+                                if (pengetahuanArrayList.get(a).getId_gejala().trim().equals(konsultasiCfUsers.get(b).getId_gejala())) {
+                                    v1 = konsultasiCfUsers.get(b).getHasil_cf();
+                                }
+
+                                v2 = hasilKonsultasiUsers.get(hasilKonsultasiUsers.size() - 1).getNilaiCf();
+                                hasil = v1 + (v2 * (1 - v1));
+                            }
+                            hasilKonsultasiUsers.remove(hasilKonsultasiUsers.size() - 1);
+                            hasilKonsultasiUsers.add(new HasilKonsultasiUser(pengetahuanArrayList.get(a).getId_penyakit(), hasil));
+                        } else {
+                            for (int b = 0; b < konsultasiCfUsers.size(); b++) {
+                                if (pengetahuanArrayList.get(a).getId_gejala().trim().equals(konsultasiCfUsers.get(b).getId_gejala())) {
+                                    hasilKonsultasiUsers.add(new HasilKonsultasiUser
+                                            (pengetahuanArrayList.get(a).getId_penyakit(), konsultasiCfUsers.get(b).getHasil_cf()));
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Collections.sort(hasilKonsultasiUsers, new Comparator<HasilKonsultasiUser>() {
+                    @Override
+                    public int compare(HasilKonsultasiUser hasilKonsultasiUser, HasilKonsultasiUser t1) {
+                        return t1.getNilaiCf().compareTo(hasilKonsultasiUser.getNilaiCf());
+                    }
+                });
+
+                Intent intent = new Intent(DiagnosaActivity.this, HasilDiagnosaActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("GEJALA", gejalaArrayList);
+                bundle.putParcelableArrayList("CFUSER", konsultasiCfUsers);
+                bundle.putParcelableArrayList("HASILKONSULTASI", hasilKonsultasiUsers);
+                bundle.putParcelableArrayList("KONSULTASI", konsultasis);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                onPause();
+                for (int a = 0; a < pengetahuanArrayList.size(); a++) {
+                    Log.d(TAG, "onResponse: " + pengetahuanArrayList.get(a).getId_penyakit() +
+                            " " + pengetahuanArrayList.get(a).getId_gejala());
+                }
             }
+
 
             @Override
             public void onFailure(Call<PengetahuanResponse> call, Throwable t) {
@@ -221,30 +223,48 @@ public class DiagnosaActivity extends AppCompatActivity {
         call.enqueue(new Callback<GejalaResponse>() {
             @Override
             public void onResponse(Call<GejalaResponse> call, Response<GejalaResponse> response) {
-                if (Boolean.valueOf(response.body().getError())) {
-                    Log.d(TAG, "onResponse: " + response.body().getMessage());
+                if (response.body() == null) {
+                    Log.d(TAG, "onResponse: wwwww");
                 } else {
-                    List<Gejala> gejalas = response.body().getGejalas();
-                    Log.d(TAG, "onResponse: Gejala Size " + gejalas.get(0).getNama_gejala());
-                    diagnosaAdapter = new DiagnosaAdapter(DiagnosaActivity.this, gejalas);
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DiagnosaActivity.this, LinearLayoutManager.VERTICAL, false);
-                    rvDiagnosa.addItemDecoration(new DividerItemDecoration(DiagnosaActivity.this, DividerItemDecoration.VERTICAL));
-                    rvDiagnosa.setLayoutManager(linearLayoutManager);
-                    rvDiagnosa.setHasFixedSize(true);
-                }
-                rvDiagnosa.setAdapter(diagnosaAdapter);
-                diagnosaAdapter.notifyDataSetChanged();
-                diagnosaAdapter.setOnProgressListener(new DiagnosaAdapter.OnProgress() {
-                    @Override
-                    public void onProgress(Boolean boo, final int position) {
-                        if (boo){
-                            dialog.setMessage("Memuat Data..." + position+"/"+diagnosaAdapter.getItemCount());
-                        } else {
-                            dialogPetani();
-                            dialog.dismiss();
-                        }
+                    if (Boolean.valueOf(response.body().getError())) {
+                        Log.d(TAG, "onResponse: " + response.body().getMessage());
+                    } else {
+                        final List<Gejala> gejalas = response.body().getGejalas();
+                        Call<PengetahuanResponse> call1 = apiInterface.getPengetahuans();
+                        call1.enqueue(new Callback<PengetahuanResponse>() {
+                            @Override
+                            public void onResponse(Call<PengetahuanResponse> call, Response<PengetahuanResponse> response) {
+                                if (Boolean.valueOf(response.body().getError())) {
+                                    Log.d(TAG, "onResponse: " + response.body().getMessage());
+                                } else {
+                                    List<Pengetahuan> pengetahuans = response.body().getPengetahuans();
+                                    diagnosaAdapter = new DiagnosaAdapter(DiagnosaActivity.this, gejalas, pengetahuans);
+                                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DiagnosaActivity.this, LinearLayoutManager.VERTICAL, false);
+                                    rvDiagnosa.addItemDecoration(new DividerItemDecoration(DiagnosaActivity.this, DividerItemDecoration.VERTICAL));
+                                    rvDiagnosa.setLayoutManager(linearLayoutManager);
+                                    rvDiagnosa.setHasFixedSize(true);
+                                }
+                                rvDiagnosa.setAdapter(diagnosaAdapter);
+                                diagnosaAdapter.notifyDataSetChanged();
+                                diagnosaAdapter.setOnProgressListener(new DiagnosaAdapter.OnProgress() {
+                                    @Override
+                                    public void onProgress(Boolean boo, final int position) {
+                                        if (boo) {
+                                            dialog.setMessage("Memuat Data..." + position + "/" + diagnosaAdapter.getItemCount());
+                                        }
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onFailure(Call<PengetahuanResponse> call, Throwable t) {
+
+                            }
+                        });
+                        Log.d(TAG, "onResponse: Gejala Size " + gejalas.get(0).getNama_gejala());
+
                     }
-                });
+                }
             }
 
             @Override
@@ -271,60 +291,5 @@ public class DiagnosaActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-    }
-
-    private void dialogPetani(){
-        alertDialog = new AlertDialog.Builder(DiagnosaActivity.this);
-        inflater = getLayoutInflater();
-        dialogView = inflater.inflate(R.layout.dialog_diagnosa, null);
-        alertDialog.setView(dialogView);
-        alertDialog.setCancelable(true);
-        alertDialog.setTitle("Tulis Komentar...");
-        edtNama = dialogView.findViewById(R.id.petani_nama);
-        edtHp = dialogView.findViewById(R.id.petani_hp);
-        edtAlamat = dialogView.findViewById(R.id.petani_alamat);
-
-        alertDialog.setPositiveButton("BATAL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                startActivity(new Intent(DiagnosaActivity.this, MainActivity.class));
-            }
-        });
-
-        alertDialog.setNegativeButton("SUBMIT", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                String tanggal = dateFormat.format(new Date());
-                if (edtNama.getText().toString().trim().equals("")){
-                    dialogPetani();
-                    edtNama.setError("Harus Diisi");
-                    edtNama.setFocusable(true);
-                } else if (edtHp.getText().toString().trim().equals("")){
-                    dialogPetani();
-                    edtHp.setError("Harus Diisi");
-                    edtHp.setFocusable(true);
-                } else if (edtAlamat.getText().toString().trim().equals("")){
-                    dialogPetani();
-                    edtAlamat.setError("Harus Diisi");
-                    edtAlamat.setFocusable(true);
-                } else {
-                    nama = edtNama.getText().toString();
-                    nohp = edtHp.getText().toString();
-                    alamat = edtAlamat.getText().toString();
-                    konsultasis.add(new Konsultasi(
-                            0,
-                            nama,
-                            nohp,
-                            alamat,
-                            "",
-                            tanggal
-                    ));
-                }
-            }
-        });
-
-        AlertDialog ad = alertDialog.create();
-        ad.show();
     }
 }

@@ -2,12 +2,10 @@ package asap20.com.sistempakarpepaya.rest;
 
 import asap20.com.sistempakarpepaya.models.response.AdminResponse;
 import asap20.com.sistempakarpepaya.models.response.BaseResponse;
-import asap20.com.sistempakarpepaya.models.response.DetailKonsultasiResponse;
 import asap20.com.sistempakarpepaya.models.response.GejalaResponse;
 import asap20.com.sistempakarpepaya.models.response.KonsultasiResponse;
 import asap20.com.sistempakarpepaya.models.response.PengetahuanResponse;
 import asap20.com.sistempakarpepaya.models.response.PenyakitResponse;
-import asap20.com.sistempakarpepaya.models.response.PetaniResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -153,54 +151,4 @@ public interface ApiInterface {
                                       @Field("nama_penyakit") String nama_penyakit,
                                       @Field("deskripsi_penyakit") String deskripsi_penyakit,
                                       @Field("gambar_penyakit") String gambar_penyakit);
-
-    //Petani
-
-    @POST("Petani.php?mode=createPetani")
-    @FormUrlEncoded
-    Call<BaseResponse> createPetani(@Field("id_petani") String id_petani,
-                                    @Field("nama_petani") String nama_petani,
-                                    @Field("no_telpon") String no_telpon,
-                                    @Field("alamat_petani") String alamat_petani,
-                                    @Field("jenis_kelamin") String jenis_kelamin,
-                                    @Field("username_petani") String username_petani,
-                                    @Field("password_petani") String password_petani);
-
-    @POST("Petani.php?mode=getPetani")
-    @FormUrlEncoded
-    Call<PetaniResponse> getPetani(@Field("id_petani") String id_petani);
-
-    @GET("Petani.php?mode=getPetanis")
-    Call<PetaniResponse> getPetanis();
-
-    @POST("Petani.php?mode=updatePetani")
-    @FormUrlEncoded
-    Call<BaseResponse> updatePetani(@Field("id_petani") String id_petani,
-                                    @Field("nama_petani") String nama_petani,
-                                    @Field("no_telpon") String no_telpon,
-                                    @Field("alamat_petani") String alamat_petani,
-                                    @Field("jenis_kelamin") String jenis_kelamin,
-                                    @Field("username_petani") String username_petani,
-                                    @Field("password_petani") String password_petani);
-
-    @POST("Petani.php?mode=loginPetani")
-    @FormUrlEncoded
-    Call<PetaniResponse> loginPetani(@Field("username_petani") String username_petani,
-                                     @Field("password_petani") String password_petani);
-
-    //DetailKonsiltasi
-
-    @POST("DetailKonsultasi.php?mode=createDetailKonsultasi")
-    @FormUrlEncoded
-    Call<BaseResponse> createDetailKonsultasi(@Field("id_konsultasi") int id_konsultasi,
-                                              @Field("id_gejala") String id_gejala);
-
-    @POST("DetailKonsultasi.php?mode=getDetailKonsultasi")
-    @FormUrlEncoded
-    Call<DetailKonsultasiResponse> getDetailKonsultasi(@Field("id_konsultasi") int id_konsultasi);
-
-
-    @GET("DetailKonsultasi.php?mode=getDetailKonsultasis")
-    Call<DetailKonsultasiResponse> getDetailKonsultasis();
-
 }

@@ -88,20 +88,19 @@ public class HasilKonsultasiAdapter extends RecyclerView.Adapter<HasilKonsultasi
             Log.d(TAG, "onBindViewHolder: " + konsultasiCfUser.getNilaiCf() + " " + (konsultasiCfUser.getNilaiCf() * 100) + "%");
             holder.cv_hasil_cf.setText(String.valueOf(konsultasiCfUser.getNilaiCf()));
             holder.cv_persen.setText((konsultasiCfUser.getNilaiCf() * 100) + "%");
-            for (int a = 0; a < hasilKonsultasiUsers.size(); a++) {
+            for (int a = 0; a < penyakits.size(); a++) {
                 if (penyakits.get(a).getId_penyakit().trim().equals(konsultasiCfUser.getIdPenyakit())) {
-                    holder.cv_penyakit.setText(penyakits.get(a).getNama_penyakit());
-
+                   holder.cv_penyakit.setText(penyakits.get(a).getNama_penyakit());
+                    Log.d(TAG, "onBindView"+penyakits.size());
                 }
-
-
+                //holder.cv_penyakit.setText(penyakits.get(a).getNama_penyakit());
             }
         }
 
     }
     @Override
     public int getItemCount() {
-        return hasilKonsultasiUsers.size();
+        return hasilKonsultasiUsers.size()+1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

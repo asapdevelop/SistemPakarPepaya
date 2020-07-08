@@ -11,7 +11,7 @@
         android:id="@+id/layout_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ADDEE8"
+        android:background="@color/white"
         android:padding="@dimen/_10sdp"
         android:orientation="horizontal">
         <CheckBox

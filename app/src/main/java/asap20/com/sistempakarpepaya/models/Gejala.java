@@ -10,13 +10,10 @@ public class Gejala implements Parcelable {
     private String id_gejala;
     @SerializedName("nama_gejala")
     private String nama_gejala;
-    @SerializedName("bobot_pakar")
-    private Double bobot_pakar;
 
     public Gejala(Parcel parcel){
         id_gejala = parcel.readString();
         nama_gejala = parcel.readString();
-        bobot_pakar = parcel.readDouble();
     }
 
     public static Creator<Gejala> CREATOR = new Creator<Gejala>() {
@@ -47,14 +44,6 @@ public class Gejala implements Parcelable {
         this.nama_gejala = nama_gejala;
     }
 
-    public Double getBobot_pakar() {
-        return bobot_pakar;
-    }
-
-    public void setBobot_pakar(Double bobot_pakar) {
-        this.bobot_pakar = bobot_pakar;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -64,6 +53,6 @@ public class Gejala implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(id_gejala);
         parcel.writeString(nama_gejala);
-        parcel.writeDouble(bobot_pakar);
+
     }
 }

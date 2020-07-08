@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
@@ -21,7 +20,7 @@
             android:id="@+id/cv_penyakit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Petani"
+            android:text="@string/petani"
             android:textColor="@color/black_text"
             android:textSize="@dimen/_17ssp"
             android:textStyle="bold"
@@ -33,7 +32,7 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hasil Diagnosa"
+            android:text="@string/hasil_diagnosa"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,15 +41,11 @@
             android:id="@+id/cv_tanggal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tanggal"
+            android:text="@string/tanggal"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="@+id/textView7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView7" />
-
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

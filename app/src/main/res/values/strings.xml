@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SiKates</string>
 
-    <string name="bantuan_top">Bantuan cara penggunaan aplikasi</string>
+    <string name="bantuan_top">Pada menu utama pilih menu Diagnosa untuk melakukan proses konsultasi penyakit pada aplikasi ini</string>
     <string name="menu_diagnosa">MENU DIAGNOSA</string>
     <string name="isi_diagnosa">Digunakan untuk melakukan diagnosa dengan cara menceklis gejala-gejala yang dirasakan dan menekan tombol Diagnosa untuk melihat hasil diagnosa</string>
     <string name="menu_penyakit">MENU PENYAKIT</string>
@@ -9,14 +9,30 @@
     <string name="menu_riwayat">MENU RIWAYAT</string>
     <string name="isi_riwayat">Pada menu ini, pengguna dapat melihat daftar riwayat diagnosa yang sudah pernah dilakukan sebelumnya</string>
     <string name="menu_about">MENU ABOUT</string>
-    <string name="isi_about">Di menu ini pengguna dapat melihat info lengkap dari pembuat aplikasi</string>
+    <string name="isi_about">Sistem pakar ini adalah sebuah apliakasi berbasis Android yang digunakan untuk mendiagnosa hama dan penyakit tanaman pepaya
+    dan memberikan solusi atau pengendalian terhadap penyakit tanaman cabai.Aplikasi ini menggunakan metode Forward Chaining dan Certainity Factor
+     </string>
+    <string name="title"><u>SiKates</u></string>
+    <string name="isi">Aplikasi ini dibuat sebagai persyaratan kelulusan Pendidikan S1-Sistem Informasi Universitas Amikom Yogyakarta
+    </string>
     <string name="back"><![CDATA[<]]></string>
     <string name="deskripsiaplikasi">Deskripsi Aplikasi</string>
+    <string name="bantuan2">Pada menu Diagnosa,pilihlah gejala penyakit yang sesuai gejala pada tanaman pepaya anda dengan memberikan
+    tanda centang pada gejala dan pilih bobot nilai sesuai gejala anda, klik tombol diagnosa yang berada dibawah pilihan gejala</string>
+    <string name="bantuan3">Pilih dua atau beberapa gejala yang dibutuhkan untuk konsultasi, Kemudian pilih diagnosa</string>
+    <string name="bantuan4">Akan muncul hasil persentasi dari setiap penyakit  yang memiliki nilai persentase terbesar memiliki nilai kepastian yang lebih dekat</string>
+    <string name="bantuan5">Pilih Solusi untuk melihat pengendalian dari tanaman pepaya</string>
+    <string name="nama">Dibuat oleh     :Tiyas Septiyana</string>
+    <string name="npm"> Npm             :19.22.2293</string>
+    <string name="jurus">Jurusan        :Sistem Informasi</string>
     <string name="tidak_tahu_0_2">Tidak Tahu (0)</string>
     <string name="mungkin_0_4">Mungkin (0,4)</string>
     <string name="kemungkinan_besar_0_6">Kemungkinan Besar (0,6)</string>
     <string name="hampir_pasti_0_8">Hampir Pasti (0,8)</string>
     <string name="pasti_1">Pasti (1)</string>
+    <string name="hasil_diagnosa">Hasil Diagnosa</string>
+    <string name="petani">Petani</string>
+    <string name="tanggal">Tanggal</string>
 
 
 </resources>

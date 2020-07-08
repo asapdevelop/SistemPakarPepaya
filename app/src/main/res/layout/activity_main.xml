@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            app:srcCompat="@drawable/keluar" />
+            app:srcCompat="@drawable/ff" />
 
         <TextView
             android:id="@+id/textView6"
@@ -124,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            app:srcCompat="@drawable/virus" />
+            app:srcCompat="@drawable/siswa" />
 
         <TextView
             android:id="@+id/textView"
@@ -132,11 +132,12 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Penyakit"
+            android:text="Lihat Data"
             android:textAlignment="center"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold" />
     </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/btnRiwayat"
@@ -176,10 +177,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:fontFamily="@font/roboto_medium"
+        android:fontFamily="@font/script"
         android:text="SiKates"
         android:textColor="#FFFFFF"
-        android:textSize="@dimen/_15ssp"
+        android:textSize="@dimen/_25ssp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -229,14 +231,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            app:srcCompat="@drawable/diagnose" />
+            app:srcCompat="@drawable/unnamed" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Konsultasi"
+            android:text="Diagnosa"
             android:textAlignment="center"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold" />

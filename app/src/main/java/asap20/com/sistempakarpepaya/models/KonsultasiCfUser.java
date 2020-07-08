@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 public class KonsultasiCfUser implements Parcelable {
+    @SerializedName("id_penyakit")
+    private String id_penyakit;
     @SerializedName("id_gejala")
     private String id_gejala;
     @SerializedName("nama_gejala")
@@ -15,7 +17,8 @@ public class KonsultasiCfUser implements Parcelable {
     @SerializedName("hasil_cf")
     private Double hasil_cf;
 
-    public KonsultasiCfUser(String id_gejala, String nama_gejala, Double cf_user, Double hasil_cf) {
+    public KonsultasiCfUser(String id_penyakit, String id_gejala, String nama_gejala, Double cf_user, Double hasil_cf) {
+        this.id_penyakit = id_penyakit;
         this.id_gejala = id_gejala;
         this.nama_gejala = nama_gejala;
         this.cf_user = cf_user;
@@ -23,6 +26,7 @@ public class KonsultasiCfUser implements Parcelable {
     }
 
     public KonsultasiCfUser(Parcel parcel){
+        id_penyakit = parcel.readString();
         id_gejala = parcel.readString();
         nama_gejala = parcel.readString();
         cf_user = parcel.readDouble();
@@ -40,6 +44,14 @@ public class KonsultasiCfUser implements Parcelable {
             return new KonsultasiCfUser[i];
         }
     };
+
+    public String getId_penyakit() {
+        return id_penyakit;
+    }
+
+    public void setId_penyakit(String id_penyakit) {
+        this.id_penyakit = id_penyakit;
+    }
 
     public String getId_gejala() {
         return id_gejala;
@@ -80,6 +92,7 @@ public class KonsultasiCfUser implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id_penyakit);
         parcel.writeString(id_gejala);
         parcel.writeString(nama_gejala);
         parcel.writeDouble(cf_user);

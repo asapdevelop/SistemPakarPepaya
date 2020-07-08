@@ -10,11 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import asap20.com.sistempakarpepaya.R;
@@ -24,7 +21,6 @@ import asap20.com.sistempakarpepaya.models.Konsultasi;
 import asap20.com.sistempakarpepaya.models.KonsultasiCfUser;
 import asap20.com.sistempakarpepaya.models.Penyakit;
 import asap20.com.sistempakarpepaya.models.response.BaseResponse;
-import asap20.com.sistempakarpepaya.models.response.DetailKonsultasiResponse;
 import asap20.com.sistempakarpepaya.models.response.KonsultasiResponse;
 import asap20.com.sistempakarpepaya.models.response.PenyakitResponse;
 import asap20.com.sistempakarpepaya.rest.ApiClient;
@@ -49,6 +45,7 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
     TextView hasilkonsultasi, view3;
     String nilai, penyakit, idpenyakit;
     Double m;
+    View view;
     Button btnsolusi;
 
     @Override
@@ -60,15 +57,13 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
         rvHasilKonsultasi = findViewById(R.id.rv_hasil_konsultasi);
         hasilkonsultasi = findViewById(R.id.hasilkonsultasi);
         view3 = findViewById(R.id.view3);
+        view=findViewById(R.id.view);
         btnsolusi = findViewById(R.id.btn_hasildiagnosa);
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
         view3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HasilDiagnosaActivity.this, MainActivity.class);
-                //intent.putExtra("IDPENYAKIT",hasilKonsultasiUsers.get(0).getIdPenyakit());
-
-
                 startActivity(intent);
             }
         });
@@ -97,70 +92,71 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
         });
     }
 
-    private void inputData() {
-
-        Call<BaseResponse> calls = apiInterface.createKonsultasi(
-                konsultasis.get(0).getNama_petani(),
-                konsultasis.get(0).getNo_telpon() + " ",
-                konsultasis.get(0).getAlamat_petani(),
-                hasilkonsultasi.getText().toString(),
-                konsultasis.get(0).getTanggal()
-        );
-        calls.enqueue(new Callback<BaseResponse>() {
-            @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                if (Boolean.valueOf(response.body().getError())) {
-                    Log.d(TAG, "onResponse: Input " + response.body().getMessage());
-                } else {
-                    Log.d(TAG, "onResponse: Input " + response.body().getMessage());
-                    Call<KonsultasiResponse> call1 = apiInterface.getKonsultasis();
-                    call1.enqueue(new Callback<KonsultasiResponse>() {
-                        @Override
-                        public void onResponse(Call<KonsultasiResponse> call, Response<KonsultasiResponse> response) {
-                            if (Boolean.parseBoolean(response.body().getError())) {
-                                Log.d(TAG, "onResponse: Select ");
-                            } else {
-                                List<Konsultasi> konsultasiList = response.body().getKonsultasis();
-                                Log.d(TAG, "onResponse: Select " + konsultasiList.get(konsultasiList.size() - 1).getId_konsultasi());
-                                for (int a=0; a<gejalaArrayList.size(); a++) {
-                                    Log.d(TAG, "onResponse: Gejala \n" + 9
-                                            + "\n" + gejalaArrayList.get(a).getId_gejala());
-                                    Call<BaseResponse> call2 = apiInterface.createDetailKonsultasi(
-                                            konsultasiList.get(konsultasiList.size()-1).getId_konsultasi(),
-                                            gejalaArrayList.get(a).getId_gejala());
-                                    call2.enqueue(new Callback<BaseResponse>() {
-                                        @Override
-                                        public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                                            if (Boolean.parseBoolean(response.body().getError())) {
-                                                Log.d(TAG, "onResponse: Detail " + response.body().getMessage());
-                                            } else {
-                                                Log.d(TAG, "onResponse: Detail " + response.body().getMessage());
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<BaseResponse> call, Throwable t) {
-                                            Log.d(TAG, "onFailure: " + t);
-                                        }
-                                    });
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<KonsultasiResponse> call, Throwable t) {
-                            Log.d(TAG, "onFailure: " + t);
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t);
-            }
-        });
-    }
+//    private void inputData() {
+//
+//        Call<BaseResponse> calls = apiInterface.createKonsultasi(
+//                konsultasis.get(0).getNama_petani(),
+//                konsultasis.get(0).getNo_telpon() + " ",
+//                konsultasis.get(0).getAlamat_petani(),
+//                hasilkonsultasi.getText().toString(),
+//                konsultasis.get(0).getTanggal()
+//        );
+//        calls.enqueue(new Callback<BaseResponse>() {
+//            @Override
+//            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+//                if (Boolean.valueOf(response.body().getError())) {
+//                    Log.d(TAG, "onResponse: Input " + response.body().getMessage());
+//                } else {
+//                    Log.d(TAG, "onResponse: Input " + response.body().getMessage());
+//                    Call<KonsultasiResponse> call1 = apiInterface.getKonsultasisa();
+//                    call1.enqueue(new Callback<KonsultasiResponse>() {
+//                        @Override
+//                        public void onResponse(Call<KonsultasiResponse> call, Response<KonsultasiResponse> response) {
+//                            if (Boolean.parseBoolean(response.body().getError())) {
+//                                Log.d(TAG, "onResponse: Select ");
+//                            } else {
+//                                List<Konsultasi> konsultasiList = response.body().getKonsultasis();
+//                                Log.d(TAG, "onResponse: Select " + konsultasiList.get(konsultasiList.size()-1).getId_konsultasi());
+//                                Log.d(TAG, "onResponse: Select 2" + konsultasiList.size());
+//
+//                                for (int a=0; a<gejalaArrayList.size(); a++) {
+//                                    Log.d(TAG, "onResponse: Gejala \n" + 9 + "\n" +konsultasiList.get(konsultasiList.size()-1));
+//                                    Call<BaseResponse> call2 = apiInterface.createDetailKonsultasi(
+//                                            konsultasiList.get(konsultasiList.size()-1).getId_konsultasi(),
+//                                            gejalaArrayList.get(a).getId_gejala());
+//                                    call2.enqueue(new Callback<BaseResponse>() {
+//                                        @Override
+//                                        public void onResponse(Call<BaseResponse> call2, Response<BaseResponse> response) {
+//                                            if (Boolean.parseBoolean(response.body().getError())) {
+//                                                Log.d(TAG, "onResponse: Detail " + response.body().getMessage());
+//                                            } else {
+//                                                Log.d(TAG, "onResponse: Detail " + response.body().getMessage());
+//                                            }
+//                                        }
+//
+//                                        @Override
+//                                        public void onFailure(Call<BaseResponse> call, Throwable t) {
+//                                            Log.d(TAG, "onFailure: " + t);
+//                                        }
+//                                    });
+//                                }}
+//                            }
+//
+//
+//                        @Override
+//                        public void onFailure(Call<KonsultasiResponse> call, Throwable t) {
+//                            Log.d(TAG, "onFailure: " + t);
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<BaseResponse> call, Throwable t) {
+//                Log.d(TAG, "onFailure: " + t);
+//            }
+//        });
+//    }
 
 
     private void initHasilGejala() {
@@ -201,10 +197,11 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
                     } else if (m <= 1) {
                         nilai = "Pasti";
                     }
-                    hasilkonsultasi.setText("Berdasarkan data diatas penyakit yang mungkin terjadi yaitu: \n\nPenyakit: " + penyakit
-                            + " \nDengan Bobot :" + String.valueOf(m * 100) + "%" + " \n\nserta tingkat keyakinannya adalah  " + nilai);
-                    Log.d(TAG, "onCreate: " + m + nilai);
-                    inputData();
+                    double hasi=m*100;
+                    hasilkonsultasi.setText("Penyakit yang mungkin terjadi yaitu: \n\nPenyakit: " + penyakit
+                            + " \nDengan Bobot :" + String.valueOf(hasi) + "%" + " \n\nserta tingkat keyakinannya adalah  " + nilai);
+                    Log.d(TAG, "onCreate: " + Math.ceil(m) + nilai);
+//                    inputData();
 
                 }
 

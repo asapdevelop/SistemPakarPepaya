@@ -4,8 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundhasil"
     tools:context=".views.activities.HasilDiagnosaActivity">
+    <View
+        android:id="@+id/view2"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_90sdp"
+        android:background="@drawable/bg_linear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/img_back"
@@ -22,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:fontFamily="@font/biorhyme_bold"
+        android:fontFamily="@font/roboto_bold"
         android:text="Hasil Konsultasi"
         android:textColor="@color/white"
         android:textSize="@dimen/_14ssp"
@@ -94,7 +102,27 @@
                 android:textColor="@color/black_text"
                 android:textStyle="bold"
                 android:textSize="@dimen/_15ssp"/>
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_43sdp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <View
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_43sdp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
         </LinearLayout>
+
+
     </ScrollView>
     <Button
         android:id="@+id/btn_hasildiagnosa"
@@ -103,7 +131,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@android:color/holo_blue_dark"
+        android:background="@color/colorPrimary"
         android:text="SOLUSI"
         android:textColor="@color/white"
         android:textSize="@dimen/_13ssp"

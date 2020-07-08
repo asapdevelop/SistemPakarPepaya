@@ -7,14 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -23,6 +18,7 @@ import java.util.List;
 import asap20.com.sistempakarpepaya.R;
 import asap20.com.sistempakarpepaya.models.Gejala;
 import asap20.com.sistempakarpepaya.models.KonsultasiCfUser;
+import asap20.com.sistempakarpepaya.models.Pengetahuan;
 
 public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHolder>{
     private static final String TAG = "DiagnosaAdapter";
@@ -30,6 +26,8 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
 
     Context context;
     List<Gejala> gejalas;
+    List<Pengetahuan> pengetahuans;
+    int jumlahKonsul=0;
 
     public interface OnProgress{
         void onProgress(Boolean boo, int position);
@@ -41,9 +39,14 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
         mListener = listener;
     }
 
-    public DiagnosaAdapter(Context context, List<Gejala> gejalas) {
+    public int getJumlahKonsul(){
+        return jumlahKonsul;
+    }
+
+    public DiagnosaAdapter(Context context, List<Gejala> gejalas, List<Pengetahuan> pengetahuans) {
         this.context = context;
         this.gejalas = gejalas;
+        this.pengetahuans = pengetahuans;
     }
 
     public ArrayList<Gejala> gejalaArrayList = new ArrayList<>();
@@ -68,6 +71,7 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
                     holder.radioGroup.setVisibility(View.VISIBLE);
                 } else {
                     gejalaArrayList.remove(gejalas.get(position));
+                    jumlahKonsul = jumlahKonsul-1;
                     for (int a=0; a<konsultasiCfUsers.size();a++){
                         if (konsultasiCfUsers.get(a).getId_gejala().trim().equals(gejalas.get(position).getId_gejala())){
                             konsultasiCfUsers.remove(a);
@@ -83,80 +87,36 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
                 for (int a=0; a<konsultasiCfUsers.size();a++){
                     if (konsultasiCfUsers.get(a).getId_gejala().trim().equals(gejalas.get(position).getId_gejala())){
                         konsultasiCfUsers.remove(a);
+                        gejalaArrayList.remove(gejalas.get(position));
                     }
                 }
                 switch (i){
                     case R.id.radio02:
-                        konsultasiCfUsers.add(
-                                new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
-                                        gejalas.get(position).getNama_gejala(),
-                                        (double) 0.1,
-                                        (gejalas.get(position).getBobot_pakar()*0.1))
-                        );
+                        inputKonsultasi(position, (double) 0.1);
                         break;
                     case R.id.radio03:
-                        konsultasiCfUsers.add(
-                                new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
-                                        gejalas.get(position).getNama_gejala(),
-                                        (double) 0.2,
-                                        (gejalas.get(position).getBobot_pakar()*0.2))
-                        );
+                        inputKonsultasi(position, (double) 0.2);
                         break;
                     case R.id.radio031:
-                        konsultasiCfUsers.add(
-                                new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
-                                        gejalas.get(position).getNama_gejala(),
-                                        (double) 0.3,
-                                        (gejalas.get(position).getBobot_pakar()*0.3))
-                        );
+                        inputKonsultasi(position, (double) 0.3);
                         break;
                     case R.id.radio04:
-                        konsultasiCfUsers.add(
-                                new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
-                                        gejalas.get(position).getNama_gejala(),
-                                        0.4,
-                                        (gejalas.get(position).getBobot_pakar()*0.4))
-                        );
+                        inputKonsultasi(position, (double) 0.4);
                         break;
                     case R.id.radio041:
-                        konsultasiCfUsers.add(
-                                new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
-                                        gejalas.get(position).getNama_gejala(),
-                                        0.5,
-                                        (gejalas.get(position).getBobot_pakar()*0.5))
-                        );
+                        inputKonsultasi(position, (double) 0.5);
                         break;
                     case R.id.radio06:
-                        konsultasiCfUsers.add(
-                                new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
-                                        gejalas.get(position).getNama_gejala(),
-                                        0.6,
-                                        (gejalas.get(position).getBobot_pakar()*0.6))
-                        );
+                        inputKonsultasi(position, (double) 0.6);
                         break;
                     case R.id.radio061:
-                        konsultasiCfUsers.add(
-                                new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
-                                        gejalas.get(position).getNama_gejala(),
-                                        0.7,
-                                        (gejalas.get(position).getBobot_pakar()*0.7))
-                        );
+                        inputKonsultasi(position, (double) 0.7);
                         break;
                     case R.id.radio08:
-                        konsultasiCfUsers.add(
-                                new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
-                                        gejalas.get(position).getNama_gejala(),
-                                        0.8,
-                                        (gejalas.get(position).getBobot_pakar()*0.8))
-                        );
+                        inputKonsultasi(position, (double) 0.8);
                         break;
                     case R.id.radio1:
-                        konsultasiCfUsers.add(
-                                new KonsultasiCfUser(gejalas.get(position).getId_gejala(),
-                                        gejalas.get(position).getNama_gejala(),
-                                        (double) 1,
-                                        (gejalas.get(position).getBobot_pakar()*1))
-                        );
+                        inputKonsultasi(position, (double) 1);
                         break;
                 }
             }
@@ -168,6 +128,23 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
         } else {
             Log.d(TAG, "onBindViewHolder: true" + position + " " + gejalas.size());
             mListener.onProgress(true, position);
+        }
+    }
+
+    private void inputKonsultasi(int position, double cf){
+        // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>Iki lho Mbang<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        jumlahKonsul = jumlahKonsul+1;
+        for (int a=0; a<pengetahuans.size(); a++){
+            if (gejalas.get(position).getId_gejala().equals(pengetahuans.get(a).getId_gejala())){
+                konsultasiCfUsers.add(
+                        new KonsultasiCfUser(
+                                pengetahuans.get(a).getId_penyakit(),
+                                gejalas.get(position).getId_gejala(),
+                                gejalas.get(position).getNama_gejala(),
+                                cf,
+                                (pengetahuans.get(a).getBobot_pakar()*cf))
+                );
+            }
         }
     }
 

@@ -91,7 +91,7 @@ public class DetailPenyakitActivity extends AppCompatActivity {
                             pengendalianya.setText(penyakits.get(a).getPengendalianya());
                             Log.d(TAG, "onResponse: " + penyakits.get(a).getGambar_penyakit());
                             Picasso.with(DetailPenyakitActivity.this)
-                                    .load(penyakits.get(a).getGambar_penyakit())
+                                    .load("http://pakarboyolali.xyz/img/penyakit/"+penyakits.get(a).getGambar_penyakit())
                                     .fit()
                                     .into(gambarPenyakit);
 

@@ -68,7 +68,7 @@ public class RiwayatGejalaAdapter extends RecyclerView.Adapter<RiwayatGejalaAdap
             holder.cv_no.setText(String.valueOf(rowPos));
             holder.cv_id_gejala.setText(gejala.getId_gejala());
             holder.cv_gejala.setText(gejala.getNama_gejala());
-            holder.cv_cf_user.setText(String.valueOf(gejala.getBobot_pakar()));
+            //holder.cv_cf_user.setText(String.valueOf(gejala.getBobot_pakar()));
         }
     }
 
