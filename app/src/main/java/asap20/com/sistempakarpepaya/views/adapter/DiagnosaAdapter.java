@@ -49,6 +49,10 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
         this.pengetahuans = pengetahuans;
     }
 
+    public ArrayList<KonsultasiCfUser> getKonsultasiCfUser(){
+        return konsultasiCfUsers;
+    }
+
     public ArrayList<Gejala> gejalaArrayList = new ArrayList<>();
     public ArrayList<KonsultasiCfUser> konsultasiCfUsers = new ArrayList<>();
 
@@ -87,7 +91,6 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
                 for (int a=0; a<konsultasiCfUsers.size();a++){
                     if (konsultasiCfUsers.get(a).getId_gejala().trim().equals(gejalas.get(position).getId_gejala())){
                         konsultasiCfUsers.remove(a);
-                        gejalaArrayList.remove(gejalas.get(position));
                     }
                 }
                 switch (i){
@@ -136,6 +139,7 @@ public class DiagnosaAdapter extends RecyclerView.Adapter<DiagnosaAdapter.ViewHo
         jumlahKonsul = jumlahKonsul+1;
         for (int a=0; a<pengetahuans.size(); a++){
             if (gejalas.get(position).getId_gejala().equals(pengetahuans.get(a).getId_gejala())){
+                Log.d(TAG, "inputKonsultasi: " + pengetahuans.get(a).getId_gejala());
                 konsultasiCfUsers.add(
                         new KonsultasiCfUser(
                                 pengetahuans.get(a).getId_penyakit(),

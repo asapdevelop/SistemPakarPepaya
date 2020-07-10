@@ -13,7 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.activities.LihatData"/>
+        <activity
+            android:name=".views.activities.MainActivity2"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".views.activities.LihatData" />
         <activity android:name=".views.activities.Gejala2Activity" />
         <activity
             android:name=".views.activities.HasilDiagnosaActivity"

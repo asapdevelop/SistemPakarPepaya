@@ -23,8 +23,6 @@ import asap20.com.sistempakarpepaya.models.Penyakit;
 public class HasilKonsultasiAdapter extends RecyclerView.Adapter<HasilKonsultasiAdapter.ViewHolder>{
     private static final String TAG = "HasilKonsultasiAdapter";
     View mView;
-
-
     Context context;
     List<Penyakit> penyakits;
     List<HasilKonsultasiUser> hasilKonsultasiUsers;

@@ -8,8 +8,8 @@
     <View
         android:id="@+id/view2"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_90sdp"
-        android:background="@drawable/bg_linear"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@drawable/bg_hasil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,11 +19,11 @@
         android:id="@+id/img_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:src="@drawable/ic_arrow_back_black_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
+        app:layout_constraintTop_toTopOf="@+id/view2" />
 
     <TextView
         android:id="@+id/textView13"
@@ -31,98 +31,104 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="Hasil Konsultasi"
+        android:text="@string/hasil_konsultasi"
         android:textColor="@color/white"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintBottom_toBottomOf="@+id/img_back"
         app:layout_constraintStart_toEndOf="@+id/img_back"
         app:layout_constraintTop_toTopOf="@+id/img_back" />
 
-    <TextView
-        android:id="@+id/view3"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_43sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3">
-
-        <LinearLayout
+        app:layout_constraintTop_toBottomOf="@+id/view2">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            >
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:background="@drawable/bg_hasil"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/textView14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Data Gejala Dipilih"
-                android:layout_marginLeft="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/kemungkinan_penyakit_dengan_nilai_proabilitas_tebesar"
+                android:textAlignment="center"
+                android:textSize="@dimen/_11ssp"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="@dimen/_15ssp"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_hasil_gejala"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                app:layout_constraintEnd_toEndOf="@+id/view4"
+                app:layout_constraintStart_toStartOf="@+id/view4"
+                app:layout_constraintTop_toTopOf="@+id/view4" />
 
             <TextView
+                android:id="@+id/tvPercent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Data Hasil Konsultasi"
+                android:text="50,00%"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginLeft="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:textColor="@color/black_text"
                 android:textStyle="bold"
-                android:textSize="@dimen/_15ssp"/>
+                android:textSize="@dimen/_20ssp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/textView14"
+                app:layout_constraintEnd_toEndOf="@+id/view4"
+                app:layout_constraintStart_toStartOf="@+id/view4"/>
+
+            <TextView
+                android:id="@+id/tvPenyakit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="Penyakit"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintEnd_toEndOf="@+id/view4"
+                app:layout_constraintStart_toStartOf="@+id/view4"
+                app:layout_constraintTop_toBottomOf="@+id/tvPercent" />
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/bg_hasil2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nilai Probabilitas Tiap Penyakit"
+                android:textAlignment="center"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/_11ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/view5"
+                app:layout_constraintEnd_toEndOf="@+id/view5"
+                app:layout_constraintStart_toStartOf="@+id/view5"
+                app:layout_constraintTop_toTopOf="@+id/view5" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_hasil_konsultasi"
+                android:id="@+id/rvHasil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
-            <TextView
-                android:id="@+id/hasilkonsultasi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Data Hasil Konsultasi"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginLeft="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:textColor="@color/black_text"
-                android:textStyle="bold"
-                android:textSize="@dimen/_15ssp"/>
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_43sdp"
-                android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <View
+                app:layout_constraintTop_toBottomOf="@+id/view5" />
 
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_43sdp"
-                android:background="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </LinearLayout>
-
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
     <Button
         android:id="@+id/btn_hasildiagnosa"

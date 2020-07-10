@@ -62,7 +62,6 @@ public class DiagnosaActivity extends AppCompatActivity {
     private LayoutInflater inflater;
     private View dialogView;
     private MaterialEditText edtNama, edtHp, edtAlamat;
-    ArrayList<Konsultasi> konsultasis = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +71,7 @@ public class DiagnosaActivity extends AppCompatActivity {
         gejalaArrayList.clear();
         konsultasiCfUsers.clear();
         pengetahuanArrayList.clear();
+        hasilKonsultasiUsers = new ArrayList<>();
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
         dialog = new ProgressDialog(DiagnosaActivity.this);
@@ -100,7 +100,9 @@ public class DiagnosaActivity extends AppCompatActivity {
                     } else {
                         for (int a = 0; a < diagnosaAdapter.gejalaArrayList.size(); a++) {
                             gejalaArrayList.add(diagnosaAdapter.gejalaArrayList.get(a));
-                            konsultasiCfUsers.add(diagnosaAdapter.konsultasiCfUsers.get(a));
+                        }
+                        for (int b = 0; b < diagnosaAdapter.konsultasiCfUsers.size(); b++) {
+                            konsultasiCfUsers.add(diagnosaAdapter.konsultasiCfUsers.get(b));
                         }
                         Collections.sort(gejalaArrayList,
                                 new Comparator<Gejala>() {
@@ -112,7 +114,7 @@ public class DiagnosaActivity extends AppCompatActivity {
                         Collections.sort(konsultasiCfUsers, new Comparator<KonsultasiCfUser>() {
                             @Override
                             public int compare(KonsultasiCfUser konsultasiCfUser, KonsultasiCfUser t1) {
-                                return konsultasiCfUser.getId_gejala().compareTo(t1.getId_gejala());
+                                return konsultasiCfUser.getId_penyakit().compareTo(t1.getId_penyakit());
                             }
                         });
                         for (int a = 0; a < konsultasiCfUsers.size(); a++) {
@@ -129,92 +131,44 @@ public class DiagnosaActivity extends AppCompatActivity {
     }
 
     private void hitungCf() {
-        Log.d(TAG, "hitungCf: ");
-        Call<PengetahuanResponse> call = apiInterface.getPengetahuans();
-        call.enqueue(new Callback<PengetahuanResponse>() {
-            @Override
-            public void onResponse(Call<PengetahuanResponse> call, Response<PengetahuanResponse> response) {
-                if (Boolean.valueOf(response.body().getError())) {
-                    Log.d(TAG, "onResponse: " + response.body().getMessage());
-                }
-                List<Pengetahuan> pengetahuans = response.body().getPengetahuans();
-                Log.d(TAG, "onResponse: " + pengetahuans.size());
-                for (int a = 0; a < konsultasiCfUsers.size(); a++) {
-                    for (int b = 0; b < pengetahuans.size(); b++) {
-                        if (konsultasiCfUsers.get(a).getId_gejala().equals(pengetahuans.get(b).getId_gejala())) {
-                            pengetahuanArrayList.add(pengetahuans.get(b));
-                        }
+        String idPenyakit = "";
+        Double v1 = 0d, v2 = 0d, hasil = 0d;
+        for (int a = 0; a < konsultasiCfUsers.size(); a++) {
+            if (!konsultasiCfUsers.get(a).getId_penyakit().equals(idPenyakit)) {
+                idPenyakit = konsultasiCfUsers.get(a).getId_penyakit();
+                v1 = konsultasiCfUsers.get(a).getHasil_cf();
+                hasilKonsultasiUsers.add(new HasilKonsultasiUser(
+                        idPenyakit,
+                        v1
+                ));
+            } else {
+                v2 = konsultasiCfUsers.get(a).getHasil_cf();
+                hasil = v1 + (v2 * (1 - v1));
+                for (int z = 0; z < hasilKonsultasiUsers.size(); z++) {
+                    if (hasilKonsultasiUsers.get(z).getIdPenyakit().trim().equals(idPenyakit)) {
+                        hasilKonsultasiUsers.remove(z);
                     }
                 }
-                Log.d(TAG, "Seleksi: " + pengetahuanArrayList.size());
-                Collections.sort(pengetahuanArrayList, new Comparator<Pengetahuan>() {
-                    @Override
-                    public int compare(Pengetahuan pengetahuan, Pengetahuan t1) {
-                        return pengetahuan.getId_penyakit().compareTo(t1.getId_penyakit());
-                    }
-                });
-
-                for (int a = 0; a < pengetahuanArrayList.size(); a++) {
-                    if (a == 0) {
-                        for (int b = 0; b < konsultasiCfUsers.size(); b++) {
-                            if (pengetahuanArrayList.get(a).getId_gejala().trim().equals(konsultasiCfUsers.get(b).getId_gejala())) {
-                                hasilKonsultasiUsers.add(new HasilKonsultasiUser(pengetahuanArrayList.get(a).getId_penyakit(),
-                                        konsultasiCfUsers.get(b).getHasil_cf()));
-                            }
-                        }
-                    } else {
-                        Double v1 = 0d, v2 = 0d, hasil = 0d;
-                        if (pengetahuanArrayList.get(a).getId_penyakit().trim().equals
-                                (hasilKonsultasiUsers.get(hasilKonsultasiUsers.size() - 1).getIdPenyakit())) {
-                            for (int b = 0; b < konsultasiCfUsers.size(); b++) {
-                                if (pengetahuanArrayList.get(a).getId_gejala().trim().equals(konsultasiCfUsers.get(b).getId_gejala())) {
-                                    v1 = konsultasiCfUsers.get(b).getHasil_cf();
-                                }
-
-                                v2 = hasilKonsultasiUsers.get(hasilKonsultasiUsers.size() - 1).getNilaiCf();
-                                hasil = v1 + (v2 * (1 - v1));
-                            }
-                            hasilKonsultasiUsers.remove(hasilKonsultasiUsers.size() - 1);
-                            hasilKonsultasiUsers.add(new HasilKonsultasiUser(pengetahuanArrayList.get(a).getId_penyakit(), hasil));
-                        } else {
-                            for (int b = 0; b < konsultasiCfUsers.size(); b++) {
-                                if (pengetahuanArrayList.get(a).getId_gejala().trim().equals(konsultasiCfUsers.get(b).getId_gejala())) {
-                                    hasilKonsultasiUsers.add(new HasilKonsultasiUser
-                                            (pengetahuanArrayList.get(a).getId_penyakit(), konsultasiCfUsers.get(b).getHasil_cf()));
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Collections.sort(hasilKonsultasiUsers, new Comparator<HasilKonsultasiUser>() {
-                    @Override
-                    public int compare(HasilKonsultasiUser hasilKonsultasiUser, HasilKonsultasiUser t1) {
-                        return t1.getNilaiCf().compareTo(hasilKonsultasiUser.getNilaiCf());
-                    }
-                });
-
-                Intent intent = new Intent(DiagnosaActivity.this, HasilDiagnosaActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("GEJALA", gejalaArrayList);
-                bundle.putParcelableArrayList("CFUSER", konsultasiCfUsers);
-                bundle.putParcelableArrayList("HASILKONSULTASI", hasilKonsultasiUsers);
-                bundle.putParcelableArrayList("KONSULTASI", konsultasis);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                onPause();
-                for (int a = 0; a < pengetahuanArrayList.size(); a++) {
-                    Log.d(TAG, "onResponse: " + pengetahuanArrayList.get(a).getId_penyakit() +
-                            " " + pengetahuanArrayList.get(a).getId_gejala());
-                }
+                hasilKonsultasiUsers.add(new HasilKonsultasiUser(
+                        idPenyakit,
+                        hasil
+                ));
             }
-
-
+        }
+        Collections.sort(hasilKonsultasiUsers, new Comparator<HasilKonsultasiUser>() {
             @Override
-            public void onFailure(Call<PengetahuanResponse> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t);
+            public int compare(HasilKonsultasiUser hasilKonsultasiUser, HasilKonsultasiUser t1) {
+                return t1.getNilaiCf().compareTo(hasilKonsultasiUser.getNilaiCf());
             }
         });
+        Intent intent = new Intent(DiagnosaActivity.this, HasilDiagnosaActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("GEJALA", gejalaArrayList);
+        bundle.putParcelableArrayList("CFUSER", konsultasiCfUsers);
+        bundle.putParcelableArrayList("HASILKONSULTASI", hasilKonsultasiUsers);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
     }
 
     private void initRecyclerView() {
@@ -223,6 +177,7 @@ public class DiagnosaActivity extends AppCompatActivity {
         call.enqueue(new Callback<GejalaResponse>() {
             @Override
             public void onResponse(Call<GejalaResponse> call, Response<GejalaResponse> response) {
+                Log.d(TAG, "onResponse: " + response.body().getError());
                 if (response.body() == null) {
                     Log.d(TAG, "onResponse: wwwww");
                 } else {
@@ -251,6 +206,8 @@ public class DiagnosaActivity extends AppCompatActivity {
                                     public void onProgress(Boolean boo, final int position) {
                                         if (boo) {
                                             dialog.setMessage("Memuat Data..." + position + "/" + diagnosaAdapter.getItemCount());
+                                        } else {
+                                            dialog.dismiss();
                                         }
                                     }
                                 });
@@ -258,7 +215,7 @@ public class DiagnosaActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<PengetahuanResponse> call, Throwable t) {
-
+                                Log.d(TAG, "onFailure: " + t);
                             }
                         });
                         Log.d(TAG, "onResponse: Gejala Size " + gejalas.get(0).getNama_gejala());

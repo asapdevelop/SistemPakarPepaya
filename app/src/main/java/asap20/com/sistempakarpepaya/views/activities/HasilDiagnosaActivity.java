@@ -1,6 +1,7 @@
 package asap20.com.sistempakarpepaya.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import asap20.com.sistempakarpepaya.models.response.KonsultasiResponse;
 import asap20.com.sistempakarpepaya.models.response.PenyakitResponse;
 import asap20.com.sistempakarpepaya.rest.ApiClient;
 import asap20.com.sistempakarpepaya.rest.ApiInterface;
+import asap20.com.sistempakarpepaya.views.adapter.HasilAdapter;
 import asap20.com.sistempakarpepaya.views.adapter.HasilGejalaAdapter;
 import asap20.com.sistempakarpepaya.views.adapter.HasilKonsultasiAdapter;
 import retrofit2.Call;
@@ -37,50 +40,47 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
     ArrayList<Gejala> gejalaArrayList = new ArrayList<>();
     ArrayList<KonsultasiCfUser> konsultasiCfUsers = new ArrayList<>();
     ArrayList<HasilKonsultasiUser> hasilKonsultasiUsers = new ArrayList<>();
-    ArrayList<Konsultasi> konsultasis = new ArrayList<>();
-    RecyclerView rvHasilGejala;
+    ArrayList<HasilKonsultasiUser> hkUser = new ArrayList<>();
     RecyclerView rvHasilKonsultasi;
-    HasilGejalaAdapter hasilGejalaAdapter;
-    HasilKonsultasiAdapter hasilKonsultasiAdapter;
-    TextView hasilkonsultasi, view3;
-    String nilai, penyakit, idpenyakit;
+    HasilAdapter hasilAdapter;
+    String penyakit, idpenyakit;
     Double m;
     View view;
     Button btnsolusi;
+    TextView tvPenyakit, tvPercent;
+    ImageView imgBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hasil_diagnosa);
 
-        rvHasilGejala = findViewById(R.id.rv_hasil_gejala);
-        rvHasilKonsultasi = findViewById(R.id.rv_hasil_konsultasi);
-        hasilkonsultasi = findViewById(R.id.hasilkonsultasi);
-        view3 = findViewById(R.id.view3);
+        rvHasilKonsultasi = findViewById(R.id.rvHasil);
         view=findViewById(R.id.view);
+        tvPenyakit = findViewById(R.id.tvPenyakit);
+        tvPercent = findViewById(R.id.tvPercent);
         btnsolusi = findViewById(R.id.btn_hasildiagnosa);
+        imgBack = findViewById(R.id.img_back);
+
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        view3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HasilDiagnosaActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         gejalaArrayList = bundle.getParcelableArrayList("GEJALA");
         konsultasiCfUsers = bundle.getParcelableArrayList("CFUSER");
         hasilKonsultasiUsers = bundle.getParcelableArrayList("HASILKONSULTASI");
-        konsultasis = bundle.getParcelableArrayList("KONSULTASI");
 
         for (int a = 0; a < hasilKonsultasiUsers.size(); a++) {
             Log.d(TAG, "onCreate: " + hasilKonsultasiUsers.get(a).getIdPenyakit() + " " + hasilKonsultasiUsers.get(a).getNilaiCf());
             idpenyakit = hasilKonsultasiUsers.get(0).getIdPenyakit();
         }
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
-        initHasilGejala();
-        initHasilKonsultasi();
+//        initHasilKonsultasi();
         initDetail();
         btnsolusi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,80 +92,6 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
         });
     }
 
-//    private void inputData() {
-//
-//        Call<BaseResponse> calls = apiInterface.createKonsultasi(
-//                konsultasis.get(0).getNama_petani(),
-//                konsultasis.get(0).getNo_telpon() + " ",
-//                konsultasis.get(0).getAlamat_petani(),
-//                hasilkonsultasi.getText().toString(),
-//                konsultasis.get(0).getTanggal()
-//        );
-//        calls.enqueue(new Callback<BaseResponse>() {
-//            @Override
-//            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-//                if (Boolean.valueOf(response.body().getError())) {
-//                    Log.d(TAG, "onResponse: Input " + response.body().getMessage());
-//                } else {
-//                    Log.d(TAG, "onResponse: Input " + response.body().getMessage());
-//                    Call<KonsultasiResponse> call1 = apiInterface.getKonsultasisa();
-//                    call1.enqueue(new Callback<KonsultasiResponse>() {
-//                        @Override
-//                        public void onResponse(Call<KonsultasiResponse> call, Response<KonsultasiResponse> response) {
-//                            if (Boolean.parseBoolean(response.body().getError())) {
-//                                Log.d(TAG, "onResponse: Select ");
-//                            } else {
-//                                List<Konsultasi> konsultasiList = response.body().getKonsultasis();
-//                                Log.d(TAG, "onResponse: Select " + konsultasiList.get(konsultasiList.size()-1).getId_konsultasi());
-//                                Log.d(TAG, "onResponse: Select 2" + konsultasiList.size());
-//
-//                                for (int a=0; a<gejalaArrayList.size(); a++) {
-//                                    Log.d(TAG, "onResponse: Gejala \n" + 9 + "\n" +konsultasiList.get(konsultasiList.size()-1));
-//                                    Call<BaseResponse> call2 = apiInterface.createDetailKonsultasi(
-//                                            konsultasiList.get(konsultasiList.size()-1).getId_konsultasi(),
-//                                            gejalaArrayList.get(a).getId_gejala());
-//                                    call2.enqueue(new Callback<BaseResponse>() {
-//                                        @Override
-//                                        public void onResponse(Call<BaseResponse> call2, Response<BaseResponse> response) {
-//                                            if (Boolean.parseBoolean(response.body().getError())) {
-//                                                Log.d(TAG, "onResponse: Detail " + response.body().getMessage());
-//                                            } else {
-//                                                Log.d(TAG, "onResponse: Detail " + response.body().getMessage());
-//                                            }
-//                                        }
-//
-//                                        @Override
-//                                        public void onFailure(Call<BaseResponse> call, Throwable t) {
-//                                            Log.d(TAG, "onFailure: " + t);
-//                                        }
-//                                    });
-//                                }}
-//                            }
-//
-//
-//                        @Override
-//                        public void onFailure(Call<KonsultasiResponse> call, Throwable t) {
-//                            Log.d(TAG, "onFailure: " + t);
-//                        }
-//                    });
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<BaseResponse> call, Throwable t) {
-//                Log.d(TAG, "onFailure: " + t);
-//            }
-//        });
-//    }
-
-
-    private void initHasilGejala() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        rvHasilGejala.setLayoutManager(linearLayoutManager);
-        hasilGejalaAdapter = new HasilGejalaAdapter(HasilDiagnosaActivity.this, konsultasiCfUsers);
-        rvHasilGejala.setAdapter(hasilGejalaAdapter);
-        hasilGejalaAdapter.notifyDataSetChanged();
-    }
 
     private void initDetail() {
         Call<PenyakitResponse> call = apiInterface.getPenyakits();
@@ -176,36 +102,39 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
                     Log.d(TAG, "onResponse: " + response.body().getMessage());
                 } else {
                     List<Penyakit> penyakits = response.body().getPenyakits();
-                    for (int a = 0; a < penyakits.size(); a++) {
-                        if (penyakits.get(a).getId_penyakit().trim().equals(hasilKonsultasiUsers.get(0).getIdPenyakit())) {
-                            penyakit = penyakits.get(a).getNama_penyakit();
-                            m = Double.valueOf(hasilKonsultasiUsers.get(0).getNilaiCf());
+                    for (int b=0; b<hasilKonsultasiUsers.size(); b++){
+                        for (int a = 0; a < penyakits.size(); a++) {
+                            if (b==0){
+                                if (penyakits.get(a).getId_penyakit().trim().equals(hasilKonsultasiUsers.get(b).getIdPenyakit())) {
+                                    Log.d(TAG, "onResponse: b==0 " + penyakits.get(a).getNama_penyakit());
+                                    penyakit = penyakits.get(a).getNama_penyakit();
+                                    m = Double.valueOf(hasilKonsultasiUsers.get(b).getNilaiCf());
+                                    double hasil=m*100;
+
+                                    tvPenyakit.setText(penyakit);
+                                    tvPercent.setText(hasil + getResources().getString(R.string.percent));
+                                }
+                            } else {
+                                if (penyakits.get(a).getId_penyakit().trim().equals(hasilKonsultasiUsers.get(b).getIdPenyakit())) {
+                                    Log.d(TAG, "onResponse: b= "+ b + " " + penyakits.get(a).getNama_penyakit());
+                                    penyakit = penyakits.get(a).getNama_penyakit();
+                                    m = Double.valueOf(hasilKonsultasiUsers.get(b).getNilaiCf());
+                                    hkUser.add(new HasilKonsultasiUser(
+                                            hasilKonsultasiUsers.get(b).getIdPenyakit(),
+                                            m));
+                                }
+                            }
                         }
-
-                        Log.d(TAG, "onCreate: " + hasilKonsultasiUsers.get(0).getIdPenyakit() + " " + hasilKonsultasiUsers.get(0).getNilaiCf());
                     }
-                    if (m <= 0.35) {
-                        nilai = "Tidak Tahu";
-
-
-                    } else if (m <= 0.55) {
-                        nilai = "Mungkin";
-                    } else if (m <= 0.75) {
-                        nilai = "Kemungkinan Besar";
-                    } else if (m <= 0.95) {
-                        nilai = "Hampir Pasti";
-                    } else if (m <= 1) {
-                        nilai = "Pasti";
-                    }
-                    double hasi=m*100;
-                    hasilkonsultasi.setText("Penyakit yang mungkin terjadi yaitu: \n\nPenyakit: " + penyakit
-                            + " \nDengan Bobot :" + String.valueOf(hasi) + "%" + " \n\nserta tingkat keyakinannya adalah  " + nilai);
-                    Log.d(TAG, "onCreate: " + Math.ceil(m) + nilai);
-//                    inputData();
-
+                    hasilAdapter = new HasilAdapter(HasilDiagnosaActivity.this, penyakits, hkUser);
+                    LinearLayoutManager linearLayoutManagers = new LinearLayoutManager(HasilDiagnosaActivity.this);
+                    rvHasilKonsultasi.addItemDecoration(new DividerItemDecoration(HasilDiagnosaActivity.this, DividerItemDecoration.VERTICAL));
+                    rvHasilKonsultasi.setLayoutManager(linearLayoutManagers);
+                    rvHasilKonsultasi.setHasFixedSize(true);
+                    rvHasilKonsultasi.setLayoutManager(linearLayoutManagers);
                 }
-
-
+                rvHasilKonsultasi.setAdapter(hasilAdapter);
+                hasilAdapter.notifyDataSetChanged();
             }
 
 
@@ -216,28 +145,9 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
         });
     }
 
-    private void initHasilKonsultasi() {
-        Call<PenyakitResponse> call = apiInterface.getPenyakits();
-        call.enqueue(new Callback<PenyakitResponse>() {
-            @Override
-            public void onResponse(Call<PenyakitResponse> call, Response<PenyakitResponse> response) {
-                if (Boolean.valueOf(response.body().getError())) {
-                    Log.d(TAG, "onResponse: " + response.body().getMessage());
-                } else {
-                    List<Penyakit> penyakits = response.body().getPenyakits();
-                    LinearLayoutManager linearLayoutManagers = new LinearLayoutManager(HasilDiagnosaActivity.this);
-                    rvHasilKonsultasi.setLayoutManager(linearLayoutManagers);
-                    hasilKonsultasiAdapter = new HasilKonsultasiAdapter(HasilDiagnosaActivity.this, penyakits, hasilKonsultasiUsers);
-                    rvHasilKonsultasi.setAdapter(hasilKonsultasiAdapter);
-
-                    hasilKonsultasiAdapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PenyakitResponse> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t);
-            }
-        });
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
