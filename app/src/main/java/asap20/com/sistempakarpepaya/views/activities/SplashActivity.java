@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 progressBar.setVisibility(ProgressBar.GONE);
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                startActivity(new Intent(SplashActivity.this, MainActivity2.class));
             }
         }.start();
 
