@@ -10,12 +10,12 @@
             android:iconTint="@color/black_text"
             android:title="@string/beranda" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_konsultasi"
             android:icon="@drawable/stethoscope_96px"
             android:iconTint="@color/black_text"
             android:title="Konsultasi" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_lihatdata"
             android:icon="@drawable/ic_baseline_menu_book_24"
             android:iconTint="@color/black_text"
             android:title="Lihat Data" />

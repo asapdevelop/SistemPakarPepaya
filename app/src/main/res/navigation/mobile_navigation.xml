@@ -9,17 +9,50 @@
         android:id="@+id/nav_home"
         android:name="asap20.com.sistempakarpepaya.views.activities.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_lihatdata"
+            app:destination="@id/nav_lihatdata" />
+        <action
+            android:id="@+id/action_nav_home_to_diagnosaActivity"
+            app:destination="@id/nav_konsultasi" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="asap20.com.sistempakarpepaya.views.activities.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="asap20.com.sistempakarpepaya.views.activities.ui.slideshow.SlideshowFragment"
+        android:id="@+id/nav_lihatdata"
+        android:name="asap20.com.sistempakarpepaya.views.activities.ui.lihatdata.LihatDataFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_lihatdata" >
+        <action
+            android:id="@+id/action_nav_lihatdata_to_gejala2Activity"
+            app:destination="@id/gejala2Activity" />
+        <action
+            android:id="@+id/action_nav_lihatdata_to_penyakitActivity"
+            app:destination="@id/penyakitActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_bantuan"
+        android:name="asap20.com.sistempakarpepaya.views.activities.ui.bantuan.BantuanFragment"
+        android:label="fragment_bantuan"
+        tools:layout="@layout/fragment_bantuan" />
+    <fragment
+        android:id="@+id/nav_tentang"
+        android:name="asap20.com.sistempakarpepaya.views.activities.ui.tentang.TentangFragment"
+        android:label="fragment_tentang"
+        tools:layout="@layout/fragment_tentang" />
+    <activity
+        android:id="@+id/gejala2Activity"
+        android:name="asap20.com.sistempakarpepaya.views.activities.Gejala2Activity"
+        android:label="activity_gejala2"
+        tools:layout="@layout/activity_gejala2" />
+    <activity
+        android:id="@+id/penyakitActivity"
+        android:name="asap20.com.sistempakarpepaya.views.activities.PenyakitActivity"
+        android:label="activity_penyakit"
+        tools:layout="@layout/activity_penyakit" />
+    <activity
+        android:id="@+id/nav_konsultasi"
+        android:name="asap20.com.sistempakarpepaya.views.activities.DiagnosaActivity"
+        android:label="activity_diagnosa"
+        tools:layout="@layout/activity_diagnosa" />
 </navigation>
